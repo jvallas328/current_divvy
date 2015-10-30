@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/current_divvy.iml" filepath="$PROJECT_DIR$/.idea/current_divvy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/._mysql-connector-java-5.1.36-bin/._mysql-connector-java-5.1.36-bin.iml" filepath="$PROJECT_DIR$/._mysql-connector-java-5.1.36-bin/._mysql-connector-java-5.1.36-bin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/current_divvy.iml" filepath="$PROJECT_DIR$/current_divvy.iml" />
     </modules>
   </component>
 </project>

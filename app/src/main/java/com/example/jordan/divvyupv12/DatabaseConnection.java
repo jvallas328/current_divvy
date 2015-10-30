@@ -19,6 +19,10 @@ public class DatabaseConnection {
 //                    "jdbc:mysql://192.168.1.3:3306/codedb";
 
             connection = DriverManager.getConnection(database_URl,Input_Data.USERNAME,Input_Data.PW);
+            System.out.println(database_URl);
+            System.out.println(Input_Data.USERNAME);
+            System.out.println(Input_Data.PW);
+            System.out.println(connection);
             return connection;
 
         } catch (SQLException e) {
@@ -34,6 +38,7 @@ public class DatabaseConnection {
 
     private boolean usernameExists(String username) {
         String sql = "select * from users where username = ?  ";
+        System.out.println(username);
         try (Connection connection = getConnection();
              PreparedStatement ps = connection.prepareStatement(sql);) {
             ps.setString(1, username);
