@@ -1,6 +1,8 @@
 package com.example.jordan.divvyupv12;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class RegisterActivity extends AppCompatActivity {
     public static Button button_sbm;
@@ -28,10 +38,43 @@ public class RegisterActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatabaseConnection db = new DatabaseConnection();
                         EditText userName = (EditText) findViewById(R.id.Username_Field);
                         EditText userPassword = (EditText) findViewById(R.id.editText);
-                        db.addUser(userName.getText().toString(),userPassword.getText().toString());
+                        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                        if (SDK_INT > 8)
+                        {//allow execution of network connection on the main thread
+                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                    .permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+                            try { //surround all of this in a try/catch to get any errors that show up
+                                URL url = new URL("http://cslinux.samford.edu/codedb/create.php");
+                                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                                conn.setReadTimeout(1000000);
+                                conn.setConnectTimeout(1500000);
+                                conn.setRequestMethod("GET"); //Use POST or GET?
+                                conn.setDoInput(true);
+                                conn.setDoOutput(true);
+
+                                Uri.Builder builder = new Uri.Builder()
+                                        .appendQueryParameter("firstParam", userName.getText().toString())
+                                        .appendQueryParameter("secondParam", userPassword.getText().toString())
+                                        .appendQueryParameter("thirdParam", "codedb");
+                                String query = builder.build().getEncodedQuery();
+
+                                OutputStream os = conn.getOutputStream();
+                                BufferedWriter writer = new BufferedWriter(
+                                        new OutputStreamWriter(os, "UTF-8"));
+                                writer.write(query);
+                                writer.flush();
+                                writer.close();
+                                os.close();
+
+                                conn.connect();
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                        }
                         Intent intent = new Intent(".LoginActivity");
                         startActivity(intent);
 
