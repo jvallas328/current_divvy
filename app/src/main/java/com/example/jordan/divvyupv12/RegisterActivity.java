@@ -1,5 +1,6 @@
 package com.example.jordan.divvyupv12;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.StrictMode;
@@ -43,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         EditText userName = (EditText) findViewById(R.id.Username_Field);
                         EditText userPassword = (EditText) findViewById(R.id.editText);
+                        String responseString = "";
+                        Boolean response = false;
                         int SDK_INT = android.os.Build.VERSION.SDK_INT;
                         if (SDK_INT > 8)
                         {//allow execution of network connection on the main thread
@@ -64,9 +67,28 @@ public class RegisterActivity extends AppCompatActivity {
                                     InputStream in = new BufferedInputStream(conn.getInputStream());
                                     Scanner httpin = new Scanner(in);
                                     while(httpin.hasNextLine()){
-                                        System.out.println(httpin.nextLine());  //Response: "true" - user was added
-                                    }                                           //Response: "false" - error occurred or
-                                } catch (Exception e) {                         //           username already exists
+                                        responseString = httpin.nextLine();
+                                        if (responseString.trim().equalsIgnoreCase("true") || responseString.trim().equalsIgnoreCase("false")) {
+                                            response = Boolean.valueOf(responseString);
+                                        } else {
+                                            System.out.println("The response was not the expected boolean value.");
+                                            response = null;
+                                        }
+                                        if(response == true){           //true - user was added, display message and continue
+                                            System.out.println("Response is " + response);
+                                            Toast.makeText(RegisterActivity.this, "Your account was created successfully!", Toast.LENGTH_LONG).show();
+                                        } else if (response == false){                        //false - error occurred or username already exists, do not continue
+                                            System.out.println("Response is " + response);
+                                            AlertDialog.Builder myAlert = new AlertDialog.Builder(RegisterActivity.this);
+                                            myAlert.setMessage("Oops, an error occurred! \n\nThe most likely cause is that your username may already be taken. " +
+                                                    "\n\nPlease try creating an account again, but this time with a new username. Just click the" +
+                                                    " back button on your device and type in new information in the account creation fields.").create();
+                                            myAlert.show();
+                                        } else {
+                                            System.out.println("The response was not a boolean value.");
+                                        }
+                                    }
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                                 finally{//disconnect after making the connection and executing the query
@@ -77,8 +99,10 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                         //continue by switching back to the main login page after user creation
-                        Intent intent = new Intent(".LoginActivity");
-                        startActivity(intent);
+                        if(response == true) {
+                            Intent intent = new Intent(".LoginActivity");
+                            startActivity(intent);
+                        }
                     }
                 }
         );
