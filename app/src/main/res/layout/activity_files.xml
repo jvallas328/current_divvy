@@ -4,25 +4,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.jordan.divvyupv12.HubActivity">
+    tools:context="com.example.jordan.divvyupv12.FilesActivity">
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Files"
-        android:id="@+id/Hub_Files_button"
+        android:text="Create Files"
+        android:id="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:onClick="goToFiles" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Groups"
-        android:id="@+id/Hub_Group_Button"
-        android:layout_below="@+id/Hub_Files_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" />
-
+        android:layout_marginTop="36dp" />
 </RelativeLayout>

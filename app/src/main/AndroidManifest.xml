@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jordan.divvyupv12" >
 
-    <!--Added the permission to access internet -->
+    <!-- Added the permission to access internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -36,6 +36,14 @@
         <activity
             android:name=".HubActivity"
             android:label="@string/title_activity_hub" >
+        </activity>
+        <activity
+            android:name=".FilesActivity"
+            android:label="@string/title_activity_files"
+            android:parentActivityName=".HubActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jordan.divvyupv12.HubActivity" />
         </activity>
     </application>
 
