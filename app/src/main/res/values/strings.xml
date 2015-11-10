@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">divvyupv12</string>
+    <string name="app_name">Divvy Up</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_register">Register</string>
-    <string name="title_activity_hub">Your Hub</string>
+    <string name="title_activity_register">Create Account</string>
+    <string name="title_activity_hub">Divvy Up Home</string>
     <string name="title_activity_files">Your Files</string>
 </resources>

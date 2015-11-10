@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:text="Your Files"
         android:id="@+id/Hub_Files_button"
+        android:layout_marginTop="34dp"
+        android:onClick="goToFiles"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:onClick="goToFiles" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -23,6 +23,15 @@
         android:id="@+id/Hub_Group_Button"
         android:layout_below="@+id/Hub_Files_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" />
+        android:layout_marginTop="53dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Account"
+        android:id="@+id/account_button"
+        android:layout_below="@+id/Hub_Group_Button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp" />
 
 </RelativeLayout>
