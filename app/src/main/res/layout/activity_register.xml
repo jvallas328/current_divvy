@@ -48,8 +48,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Account"
+        android:textAllCaps="false"
         android:id="@+id/Create_Account_Button"
         android:layout_below="@+id/Password_Field"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What is Divvy Up?"
+        android:textAllCaps="false"
+        android:id="@+id/whatisdivvybutton"
+        android:onClick="showAlert"
+        android:layout_below="@+id/Create_Account_Button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="77dp" />
 </RelativeLayout>

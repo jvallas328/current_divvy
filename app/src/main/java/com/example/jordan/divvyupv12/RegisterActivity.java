@@ -129,4 +129,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void showAlert(View view) {
+        AlertDialog.Builder whatisdivvy = new AlertDialog.Builder(this);
+        whatisdivvy.setMessage("Divvy Up is a service that enables you and your team to collaborate on code together in a real time. Divvy up allows you to divide up your coding projects by “groups” allowing you quickly to find the file you need to work on. There is also a function that allows you to highlight and leave notes for other users to see. Divvy Up is the future, and will replace your web-based collaborative software with new innovative software and ease of access.")
+                .setPositiveButton("Sounds Good!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle("What is Divvy Up?")
+                .create();
+        whatisdivvy.show();
+    }
 }
