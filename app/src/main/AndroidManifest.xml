@@ -36,6 +36,11 @@
         <activity
             android:name=".HubActivity"
             android:label="@string/title_activity_hub" >
+            <intent-filter>
+                <action android:name="com.example.jordan.divvyupv12.HubActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".FilesActivity"

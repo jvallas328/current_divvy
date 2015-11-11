@@ -9,22 +9,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class RegisterActivity extends AppCompatActivity {
     public static Button button_sbm;
@@ -43,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         EditText userName = (EditText) findViewById(R.id.Username_Field);
-                        EditText userPassword = (EditText) findViewById(R.id.editText);
+                        EditText userPassword = (EditText) findViewById(R.id.Password_Field);
                         String responseString = "";
                         Boolean response = false;
                         int SDK_INT = android.os.Build.VERSION.SDK_INT;
