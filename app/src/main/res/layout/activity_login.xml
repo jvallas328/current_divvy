@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/Login_Username_Field"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp" />
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/Login_Password_Field"
         android:layout_above="@+id/Login_Button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="27dp" />
@@ -59,6 +59,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Password"
         android:id="@+id/textView4"
-        android:layout_above="@+id/editText3"
+        android:layout_above="@+id/Login_Password_Field"
         android:layout_alignEnd="@+id/textView3" />
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.jordan.divvyupv12;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.StrictMode;
@@ -74,8 +75,14 @@ public class RegisterActivity extends AppCompatActivity {
                                             System.out.println("Response is " + response);
                                             AlertDialog.Builder myAlert = new AlertDialog.Builder(RegisterActivity.this);
                                             myAlert.setMessage("Oops, an error occurred! \n\nThe most likely cause is that your username may already be taken. " +
-                                                    "\n\nPlease try creating an account again, but this time with a new username. Just click the" +
-                                                    " back button on your device and type in new information in the account creation fields.").create();
+                                                    "\n\nPlease try creating an account again, but this time with a new username. Click continue " +
+                                                    "and add new information in the account creation fields.").create();
+                                            myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
                                             myAlert.show();
                                         } else {
                                             System.out.println("The response was not a boolean value.");
