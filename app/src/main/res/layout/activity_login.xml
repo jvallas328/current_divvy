@@ -11,8 +11,7 @@
         android:text="Register Now"
         android:id="@+id/register_now"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -20,8 +19,7 @@
         android:text="Login"
         android:id="@+id/Login_Button"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"

@@ -8,54 +8,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginActivity extends AppCompatActivity{
-        //implements View.OnClickListener{
-    public static Button login_button , register_now_button;
+public class LoginActivity extends AppCompatActivity {
+    public static Button button_sbm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-              OnClickButtonListener();
+        OnClickButtonListener();
     }
 
     public void OnClickButtonListener() {
-        register_now_button = (Button)findViewById(R.id.register_now);
-        register_now_button.setOnClickListener(
+        button_sbm = (Button)findViewById(R.id.register_now);
+        button_sbm.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent("com.example.jordan.divvyupv12.RegisterActivity");
                         startActivity(intent);
+
+
                     }
                 }
-        );
-        login_button = (Button) findViewById(R.id.Login_Button);
-        login_button.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent2 = new Intent("com.example.jordan.divvyupv12.HubActivity");
-                        startActivity(intent2);
-                    }
-                }
-        );
+                    );
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch(v.getId()){
-//            case R.id.Login_Button:
-//                Intent intent = new Intent("com.example.jordan.divvyupv12.HubActivity");
-//                startActivity(intent);
-//                break;
-//            case R.id.register_now:
-//                Intent intent2 = new Intent("com.example.jordan.divvyupv12.RegisterActivity");
-//                startActivity(intent2);
-//                break;
-//        }
-//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -77,6 +55,4 @@ public class LoginActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

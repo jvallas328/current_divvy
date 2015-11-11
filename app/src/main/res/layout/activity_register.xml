@@ -14,7 +14,7 @@
         android:ems="10"
         android:id="@+id/Username_Field"
         android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/Password_Field" />
+        android:layout_alignStart="@+id/editText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:inputType="textPassword"
         android:imeOptions="actionNone"
         android:ems="10"
-        android:id="@+id/Password_Field"
+        android:id="@+id/editText"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Create Account"
         android:id="@+id/Create_Account_Button"
-        android:layout_below="@+id/Password_Field"
+        android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
 </RelativeLayout>
