@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity{
                                     } else {                //user exists; get the json object inside the array and store user_id variable
                                         JSONObject obj = arr.getJSONObject(0);
                                         System.out.println("The user_id is: " + obj.getString("id")); //brandon the "obj.getString('id')" gets the value of user_id
+                                        Globals.getInstance().userID = obj.getString("id");//stores the user id from the database in the userID global variable
                                         Toast.makeText(LoginActivity.this, "Welcome " + userName.getText().toString() + "!", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (Exception e) {
