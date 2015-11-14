@@ -57,7 +57,7 @@ public class FilesActivity extends AppCompatActivity {
                     }
                     arr = new JSONArray(json);
                     System.out.println("The JSON array contents: " + arr.toString());
-                    if(json.length() == 0) { //if the json array is empty, then this user does not have any files
+                    if(arr.length() == 0) { //if the json array is empty, then this user does not have any files
                         Toast.makeText(FilesActivity.this, "You do not have any files yet.", Toast.LENGTH_LONG).show();
                     } else {                //user exists
                         JSONObject obj;
