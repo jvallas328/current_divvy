@@ -51,8 +51,10 @@
         android:textAllCaps="false"
         android:id="@+id/Create_Account_Button"
         android:layout_below="@+id/Password_Field"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:layout_alignEnd="@+id/Password_Field"
+        android:layout_alignStart="@+id/Password_Field"
+        android:background="#00b12b" />
 
     <Button
         android:layout_width="wrap_content"

@@ -11,9 +11,10 @@
         android:text="Register Now"
         android:textAllCaps="false"
         android:id="@+id/register_now"
+        android:clickable="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:clickable="true" />
+        android:layout_marginBottom="35dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -22,8 +23,11 @@
         android:textAllCaps="false"
         android:id="@+id/Login_Button"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_alignStart="@+id/Login_Password_Field"
+        android:layout_alignEnd="@+id/Login_Password_Field"
+        android:background="#00b12b"
+        android:textColor="#ffffff" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -51,9 +55,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Username"
         android:id="@+id/textView3"
+        android:layout_marginTop="21dp"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/Login_Button"
-        android:layout_marginTop="28dp" />
+        android:layout_alignEnd="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,5 +66,5 @@
         android:text="Password"
         android:id="@+id/textView4"
         android:layout_above="@+id/Login_Password_Field"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
