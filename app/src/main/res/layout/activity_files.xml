@@ -22,6 +22,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView"
         android:layout_below="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:layout_toStartOf="@+id/fileContentsBox" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fileContentsBox"
+        android:layout_below="@+id/button"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:editable="true"
+        android:layout_alignParentStart="false" />
 
 </RelativeLayout>
