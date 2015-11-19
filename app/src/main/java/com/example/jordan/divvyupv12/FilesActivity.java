@@ -20,9 +20,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -146,11 +148,20 @@ public class FilesActivity extends AppCompatActivity {
                                                                 String query = builder.build().getEncodedQuery();
                                                                 System.out.println("The query: " + query);      //to verify query string
 
-                                                                url= new URL("http://cslinux.samford.edu/codedb/patchmake.php?" + query);
+                                                                url= new URL("http://cslinux.samford.edu/codedb/patchmake.php");
                                                                 HttpURLConnection conn3 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
                                                                 conn3.setRequestMethod("POST");
                                                                 conn3.setDoOutput(true);
                                                                 conn3.setDoInput(true);
+                                                                OutputStream os = conn3.getOutputStream();
+                                                                BufferedWriter writer = new BufferedWriter(
+                                                                        new OutputStreamWriter(os, "UTF-8"));
+                                                                writer.write(query);
+                                                                writer.flush();
+                                                                writer.close();
+                                                                os.close();
+                                                                //conn3.connect();
+
                                                                 System.out.println("The complete POST url: " + url); //to verify full url
                                                                 try {//to get the response from server
                                                                     String postContents = "";
