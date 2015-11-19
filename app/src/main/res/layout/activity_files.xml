@@ -10,30 +10,29 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Files"
+        android:text="Save File"
         android:textAllCaps="false"
-        android:id="@+id/button"
+        android:id="@+id/save_file"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp" />
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/save_file"
         android:layout_toStartOf="@+id/fileContentsBox" />
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fileContentsBox"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/save_file"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_toEndOf="@+id/save_file"
         android:layout_alignParentBottom="true"
         android:editable="true"
-        android:layout_alignParentStart="false" />
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:autoText="false" />
 
 </RelativeLayout>
