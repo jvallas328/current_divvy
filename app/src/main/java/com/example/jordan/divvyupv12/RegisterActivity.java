@@ -124,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(RegisterActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
             return true;
         }
 

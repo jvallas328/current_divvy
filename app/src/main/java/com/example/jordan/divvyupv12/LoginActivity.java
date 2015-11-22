@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(LoginActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
             return true;
         }
 

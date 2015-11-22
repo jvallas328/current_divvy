@@ -243,6 +243,7 @@ public class FilesActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(FilesActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
             return true;
         }
 

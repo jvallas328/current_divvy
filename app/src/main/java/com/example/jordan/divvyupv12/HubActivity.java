@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class HubActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class HubActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(HubActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -41,5 +43,9 @@ public class HubActivity extends AppCompatActivity {
     public void goToFiles(View view){
         Intent intent = new Intent(this, FilesActivity.class);
         startActivity(intent);
+    }
+
+    public void featureNotSupported(View view){
+        Toast.makeText(HubActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
     }
 }
