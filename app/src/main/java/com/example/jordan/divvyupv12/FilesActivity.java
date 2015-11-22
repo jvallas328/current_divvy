@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class FilesActivity extends AppCompatActivity {
-    public static Button save_file_button;
+    public static Button save_file_button, add_user_to_file_button;
     String[] items;
     String[] fileIDs;
     String[] filecontentsarr;
@@ -160,7 +160,6 @@ public class FilesActivity extends AppCompatActivity {
                                                                 writer.flush();
                                                                 writer.close();
                                                                 os.close();
-                                                                //conn3.connect();
 
                                                                 System.out.println("The complete POST url: " + url); //to verify full url
                                                                 try {//to get the response from server
@@ -173,25 +172,8 @@ public class FilesActivity extends AppCompatActivity {
                                                                         System.out.println("entered for loop");
                                                                     }
                                                                     System.out.println("line " + line);
-                                                                    //arr = new JSONArray(json);
                                                                     System.out.println("The POST contents: " + postContents);
-                                                                    /*if(postContents.equals("")) { //if the json array is empty, then this user does not have any files
-                                                                        Toast.makeText(FilesActivity.this, "You do not have any files yet.", Toast.LENGTH_LONG).show();
-                                                                    } else {                //user exists
-                                                                        //EditText text = (EditText)findViewById(R.id.fileContentsBox);;
-                                                                        //text.setText(postontents);
-
-                                                                        save_file_button = (Button)findViewById(R.id.save_file);
-                                                                        save_file_button.setOnClickListener(
-                                                                                new View.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(View v) {
-
-                                                                                    }
-                                                                                }
-                                                                        );
-                                                                    }//password for db is
-                                                                */} catch (Exception e) {
+                                                                } catch (Exception e) {
                                                                     e.printStackTrace();
                                                                 }
                                                                 finally{//disconnect after making the connection and executing the query
@@ -247,5 +229,10 @@ public class FilesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToFiles(View view){
+        Intent intent = new Intent(this, AddUserToFileActivity.class);
+        startActivity(intent);
     }
 }
