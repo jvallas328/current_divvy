@@ -55,7 +55,6 @@ public class AddUserToFileActivity extends AppCompatActivity {
                         String json = "";
                         JSONArray arr = new JSONArray();
                         String json2 = "";
-                        JSONArray arr2 = new JSONArray();
 
                         int SDK_INT = android.os.Build.VERSION.SDK_INT;
                         if (SDK_INT > 8) {//allow execution of network connection on the main thread
@@ -93,7 +92,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                 for (int i = 0; i < arr.length(); i++) {
                                     JSONObject obj = arr.getJSONObject(i);
                                     System.out.println("A potential match user: " + obj.getString("username"));
-                                    if(usernameField.getText().toString() == obj.getString("username")){
+                                    if(usernameField.getText().toString().equals(obj.getString("username"))){
                                         System.out.println("Match found!");
                                         parameterID = obj.getString("id");
                                     }
@@ -148,7 +147,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                 for (int i = 0; i < arrUser.length(); i++) {
                                                     obj = arrUser.getJSONObject(i);
                                                     System.out.println("A potential match file owned by the current user: " + obj.getString("filename"));
-                                                    if(filenameField.getText().toString() == obj.getString("filename")){
+                                                    if(filenameField.getText().toString().equals(obj.getString("filename"))){
                                                         System.out.println("Match found!");
                                                         parameterFileID = obj.getString("id");
                                                     }
@@ -179,6 +178,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                                 .appendQueryParameter("db", "codedb");
                                                         String query2 = builder2.build().getEncodedQuery();
 
+
                                                         URL url2 = new URL("http://cslinux.samford.edu/codedb/addusertofile.php?" + query2);
                                                         HttpURLConnection conn3 = (HttpURLConnection) url2.openConnection();
                                                         System.out.println("The complete url: " + url2); //to verify full url
@@ -188,19 +188,31 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                             while (httpin2.hasNextLine()) {
                                                                 json2 += httpin2.nextLine();
                                                             }
-                                                            arr2 = new JSONArray(json2);
-                                                            System.out.println("The JSON array contents: " + arr2.toString());
+                                                            System.out.println("The returned contents of the file: " + json2);
                                                         } catch (Exception e) {
                                                             e.printStackTrace();
                                                         } finally {//disconnect after making the connection and executing the query
                                                             conn3.disconnect();
                                                         }
+                                                        //go to hub page if the login was successful
+                                                        if(json2 == "false"){
+                                                            AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
+                                                            myAlert.setMessage("The request was unsuccessful. \n\nThe user you wish to add to this file may already have shared permissions for the file.").create();
+                                                            myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                            myAlert.show();
+                                                        } else {
+                                                            Toast.makeText(AddUserToFileActivity.this, "The user was added to the file successfully!", Toast.LENGTH_LONG).show();
+                                                            Intent intent = new Intent("com.example.jordan.divvyupv12.FilesActivity");
+                                                            startActivity(intent);
+                                                        }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
                                                     }
-                                                    //go to hub page if the login was successful
-                                                    Intent intent = new Intent("com.example.jordan.divvyupv12.FilesActivity");
-                                                    startActivity(intent);
                                                 }
                                             }//password for db is
                                         } catch (Exception e) {

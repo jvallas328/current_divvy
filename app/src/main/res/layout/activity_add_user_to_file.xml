@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Username"
+        android:text="User you wish to add to the file:"
         android:id="@+id/textView5"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -42,7 +42,8 @@
             android:textSize="15dp"
             android:layout_alignStart="@+id/Read_Only_Select"
             android:layout_alignEnd="@+id/Read_Only_Select"
-            android:layout_weight="0.26" />
+            android:layout_weight="0.26"
+            android:checked="false" />
 
         <RadioButton
             android:layout_width="113dp"
@@ -52,7 +53,8 @@
             android:textSize="15dp"
             android:layout_below="@+id/Can_Edit_Select"
             android:layout_alignEnd="@+id/Filename_Field"
-            android:layout_alignStart="@+id/Filename_Field" />
+            android:layout_alignStart="@+id/Filename_Field"
+            android:enabled="true" />
     </RadioGroup>
 
     <Button
@@ -69,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Filename"
+        android:text="Name of the file you own:"
         android:id="@+id/textView8"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
@@ -79,6 +81,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:imeOptions="actionNone"
+        android:inputType="textNoSuggestions"
         android:id="@+id/Filename_Field"
         android:layout_below="@+id/textView8"
         android:layout_centerHorizontal="true" />
@@ -87,6 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Username_Field"
+        android:imeOptions="actionNone"
+        android:inputType="textNoSuggestions"
         android:layout_below="@+id/textView5"
         android:layout_alignEnd="@+id/Filename_Field"
         android:layout_alignStart="@+id/Filename_Field" />

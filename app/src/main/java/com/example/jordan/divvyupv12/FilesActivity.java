@@ -33,6 +33,7 @@ public class FilesActivity extends AppCompatActivity {
     public static Button save_file_button, add_user_to_file_button;
     String[] items;
     String[] fileIDs;
+    String[] filePermissions;
     String[] filecontentsarr;
     String json = "";
     URL url;
@@ -77,12 +78,14 @@ public class FilesActivity extends AppCompatActivity {
                         JSONObject obj;
                         String[] files = new String[arrUser.length() + arrShared.length()];
                         fileIDs= new String[arrUser.length() + arrShared.length()];
+                        filePermissions = new String[arrUser.length() + arrShared.length()];
                         filecontentsarr= new String[arrUser.length() + arrShared.length()];
                         int count = 0;
                         for (int i = 0; i < arrUser.length(); i++) {
                             obj = arrUser.getJSONObject(i);
                             System.out.println("(User) The filename is: " + obj.getString("filename"));
                             files[count] = obj.getString("filename");
+                            filePermissions[count] = "N/A";
                             System.out.println("(User) The file ID is: " + obj.getString("id"));
                             fileIDs[count] = obj.getString("id");
                             count++;
@@ -93,6 +96,8 @@ public class FilesActivity extends AppCompatActivity {
                             files[count] = obj.getString("filename");
                             System.out.println("(Shared) The file ID is: " + obj.getString("codefile_id"));
                             fileIDs[count] = obj.getString("codefile_id");
+                            System.out.println("(Shared) The file permission is: " + obj.getString("permission"));
+                            filePermissions[count] = obj.getString("permission");
                             count++;
                         }
                         ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,files);
@@ -102,6 +107,20 @@ public class FilesActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapter, View view, int position, final long id) {
                                 try { //must surround with try/catch to filter errors
+                                    EditText contentBox = (EditText) findViewById(R.id.fileContentsBox);
+                                    if(filePermissions[(int)id].equals("0")) {
+                                        //contentBox.setClickable(false);
+                                        //contentBox.setCursorVisible(false);
+                                        //contentBox.setFocusable(false);
+                                        //contentBox.setFocusableInTouchMode(false);
+                                        contentBox.setEnabled(false);
+                                    } else {
+                                        //contentBox.setClickable(true);
+                                        //contentBox.setCursorVisible(true);
+                                        //contentBox.setFocusable(true);
+                                        //contentBox.setFocusableInTouchMode(true);
+                                        contentBox.setEnabled(true);
+                                    }
                                     String contents = "";
                                     Uri.Builder builder = new Uri.Builder()
                                             .appendQueryParameter("fileid", fileIDs[(int)id])
