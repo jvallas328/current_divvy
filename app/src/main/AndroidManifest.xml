@@ -50,9 +50,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jordan.divvyupv12.HubActivity" />
         </activity>
-        <activity android:name=".AddUserToFileActivity" >
+        <activity
             android:name=".AddUserToFileActivity"
-            android:label="@string/title_activity_add_user_to_file"
+            android:label="Add User to an Existing File"
             android:parentActivityName=".FilesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

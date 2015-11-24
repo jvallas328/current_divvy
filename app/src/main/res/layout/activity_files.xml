@@ -57,8 +57,8 @@
         android:id="@+id/add_user_to_file"
         android:textAllCaps="false"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/fileContentsBox"
         android:layout_alignEnd="@+id/fileContentsBox"
-        android:onClick="goToFiles" />
+        android:onClick="goToFiles"
+        android:layout_toEndOf="@+id/save_file" />
 
 </RelativeLayout>
