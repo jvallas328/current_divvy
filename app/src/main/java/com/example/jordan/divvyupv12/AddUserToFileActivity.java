@@ -95,6 +95,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                     if(usernameField.getText().toString().equals(obj.getString("username"))){
                                         System.out.println("Match found!");
                                         parameterID = obj.getString("id");
+                                        i = arr.length(); //to exit the for loop
                                     }
                                 }
                                 //if there is no match at the end of the for loop, say so
@@ -112,6 +113,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                     try { //must surround with try/catch to filter errors
                                         JSONArray arrFull;
                                         JSONArray arrUser;
+                                        JSONArray arrShared;
                                         String json3 = "";
                                         String parameterFileID = "";
                                         Uri.Builder builder = new Uri.Builder()
@@ -130,10 +132,11 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                             }
                                             arrFull = new JSONArray(json3);
                                             arrUser = (JSONArray)arrFull.get(0);
+                                            arrShared = (JSONArray)arrFull.get(1);
                                             System.out.println("The JSON array contents: " + arrFull.toString());
                                             if(arrUser.length() == 0) { //if the json array is empty, then this user does not have any files
                                                 AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
-                                                myAlert.setMessage("You do not own any files yet! \n\n(Note: Currently, we only allow a file to be shared by its creator.)").create();
+                                                myAlert.setMessage("You do not own any files yet! \n\nCreate a new file and try again! \n\n(Note: Currently, we only allow a file to be shared by its owner.)").create();
                                                 myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
@@ -142,17 +145,30 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                 });
                                                 myAlert.show();
                                             } else {                //user exists
+                                                boolean sharedFile = true;
                                                 JSONObject obj;
                                                 System.out.println("The text field: " + filenameField.getText().toString());
-                                                for (int i = 0; i < arrUser.length(); i++) {
+                                                for (int i = 0; i < arrUser.length(); i++) { //check to see if the file exists and is owned by the current user
                                                     obj = arrUser.getJSONObject(i);
                                                     System.out.println("A potential match file owned by the current user: " + obj.getString("filename"));
                                                     if(filenameField.getText().toString().equals(obj.getString("filename"))){
                                                         System.out.println("Match found!");
                                                         parameterFileID = obj.getString("id");
+                                                        i = arrUser.length();
+                                                        sharedFile = false;
                                                     }
                                                 }
-                                                if(parameterFileID == ""){
+                                                for (int i = 0; i < arrShared.length(); i++) { //check to see if the file was a shared file and the current user is not the owner
+                                                    obj = arrShared.getJSONObject(i);
+                                                    System.out.println("A potential match file owned by the current user: " + obj.getString("filename"));
+                                                    if(filenameField.getText().toString().equals(obj.getString("filename"))){
+                                                        System.out.println("Match found!");
+                                                        parameterFileID = obj.getString("codefile_id");
+                                                        i = arrShared.length();
+                                                        sharedFile = true;
+                                                    }
+                                                }
+                                                if(parameterFileID == ""){ //if the parameterFileID is still null after all of this, then no match was found
                                                     AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
                                                     myAlert.setMessage("No match found for the filename entered. \n\nPlease check your spelling and try again!").create();
                                                     myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
@@ -162,7 +178,17 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                         }
                                                     });
                                                     myAlert.show();
-                                                }else {
+                                                } else if (sharedFile == true) { //if sharedFile is true, then the file was found but not owned by the user
+                                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
+                                                    myAlert.setMessage("You cannot share this file because you are not the owner. \n\nPlease try again, but this time with a file you own.").create();
+                                                    myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                    myAlert.show();
+                                                } else {    //file  was found and owned by the user
                                                     String permissionValue = "";
                                                     if(editRadioButton.isChecked()){ //permission should be a 1
                                                         permissionValue = "1";
@@ -195,7 +221,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                             conn3.disconnect();
                                                         }
                                                         //go to hub page if the login was successful
-                                                        if(json2 == "false"){
+                                                        if(json2.equals("false")){
                                                             AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
                                                             myAlert.setMessage("The request was unsuccessful. \n\nThe user you wish to add to this file may already have shared permissions for the file.").create();
                                                             myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {

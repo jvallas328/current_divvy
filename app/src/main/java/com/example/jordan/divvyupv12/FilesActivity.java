@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class FilesActivity extends AppCompatActivity {
-    public static Button save_file_button, add_user_to_file_button;
+    public static Button save_file_button;
     String[] items;
     String[] fileIDs;
     String[] filePermissions;
@@ -84,7 +84,7 @@ public class FilesActivity extends AppCompatActivity {
                         for (int i = 0; i < arrUser.length(); i++) {
                             obj = arrUser.getJSONObject(i);
                             System.out.println("(User) The filename is: " + obj.getString("filename"));
-                            files[count] = obj.getString("filename");
+                            files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Owned\n";
                             filePermissions[count] = "N/A";
                             System.out.println("(User) The file ID is: " + obj.getString("id"));
                             fileIDs[count] = obj.getString("id");
@@ -93,7 +93,11 @@ public class FilesActivity extends AppCompatActivity {
                         for (int i = 0; i < arrShared.length(); i++) {
                             obj = arrShared.getJSONObject(i);
                             System.out.println("(Shared) The filename is: " + obj.getString("filename"));
-                            files[count] = obj.getString("filename");
+                            if(obj.getString("permission").equals("1")){
+                                files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\n-Permission: \n >Can Edit\n";
+                            }else{
+                                files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\nPermission: \n >Read-Only\n";
+                            }
                             System.out.println("(Shared) The file ID is: " + obj.getString("codefile_id"));
                             fileIDs[count] = obj.getString("codefile_id");
                             System.out.println("(Shared) The file permission is: " + obj.getString("permission"));
@@ -109,17 +113,15 @@ public class FilesActivity extends AppCompatActivity {
                                 try { //must surround with try/catch to filter errors
                                     EditText contentBox = (EditText) findViewById(R.id.fileContentsBox);
                                     if(filePermissions[(int)id].equals("0")) {
-                                        //contentBox.setClickable(false);
-                                        //contentBox.setCursorVisible(false);
-                                        //contentBox.setFocusable(false);
-                                        //contentBox.setFocusableInTouchMode(false);
-                                        contentBox.setEnabled(false);
+                                        contentBox.setClickable(false);
+                                        contentBox.setCursorVisible(false);
+                                        contentBox.setFocusable(false);
+                                        contentBox.setFocusableInTouchMode(false);
                                     } else {
-                                        //contentBox.setClickable(true);
-                                        //contentBox.setCursorVisible(true);
-                                        //contentBox.setFocusable(true);
-                                        //contentBox.setFocusableInTouchMode(true);
-                                        contentBox.setEnabled(true);
+                                        contentBox.setClickable(true);
+                                        contentBox.setCursorVisible(true);
+                                        contentBox.setFocusable(true);
+                                        contentBox.setFocusableInTouchMode(true);
                                     }
                                     String contents = "";
                                     Uri.Builder builder = new Uri.Builder()
@@ -145,7 +147,7 @@ public class FilesActivity extends AppCompatActivity {
                                         //arr = new JSONArray(json);
                                         System.out.println("The contents: " + contents);
                                         if(contents.equals("")) { //if the json array is empty, then this user does not have any files
-                                            Toast.makeText(FilesActivity.this, "You do not have any files yet.", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(FilesActivity.this, "This file does not have any content.", Toast.LENGTH_LONG).show();
                                         } else {                //user exists
                                             EditText text = (EditText)findViewById(R.id.fileContentsBox);;
                                             text.setText(contents);
