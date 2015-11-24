@@ -11,18 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User Id"
+        android:text="Username"
         android:id="@+id/textView5"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/User_Id_Field"
-        android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -41,8 +32,8 @@
         android:layout_below="@+id/textView6"
         android:layout_marginTop="25dp"
         android:weightSum="1"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignEnd="@+id/editText">
+        android:layout_alignStart="@+id/Filename_Field"
+        android:layout_alignEnd="@+id/Filename_Field">
         <RadioButton
             android:layout_width="112dp"
             android:layout_height="wrap_content"
@@ -60,8 +51,8 @@
             android:id="@+id/Read_Only_Select"
             android:textSize="15dp"
             android:layout_below="@+id/Can_Edit_Select"
-            android:layout_alignEnd="@+id/editText"
-            android:layout_alignStart="@+id/editText" />
+            android:layout_alignEnd="@+id/Filename_Field"
+            android:layout_alignStart="@+id/Filename_Field" />
     </RadioGroup>
 
     <Button
@@ -78,18 +69,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="File Id"
+        android:text="Filename"
         android:id="@+id/textView8"
-        android:layout_below="@+id/User_Id_Field"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/Username_Field" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/Filename_Field"
         android:layout_below="@+id/textView8"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Username_Field"
+        android:layout_below="@+id/textView5"
+        android:layout_alignEnd="@+id/Filename_Field"
+        android:layout_alignStart="@+id/Filename_Field" />
 </RelativeLayout>
