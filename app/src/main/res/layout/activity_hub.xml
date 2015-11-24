@@ -24,7 +24,8 @@
         android:textAllCaps="false"
         android:id="@+id/Hub_Group_Button"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="featureNotSupported"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -34,6 +35,7 @@
         android:id="@+id/Your_Account_Button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="78dp" />
+        android:layout_marginBottom="78dp"
+        android:onClick="featureNotSupported"/>
 
 </RelativeLayout>
