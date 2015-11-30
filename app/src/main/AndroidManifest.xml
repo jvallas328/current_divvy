@@ -26,7 +26,11 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jordan.divvyupv12.LoginActivity" />
             <intent-filter>
                 <action android:name="com.example.jordan.divvyupv12.RegisterActivity" />
 
@@ -77,7 +81,11 @@
         </activity>
         <activity
             android:name=".CreateFileActivity"
-            android:label="@string/title_activity_create_file" >
+            android:label="@string/title_activity_create_file"
+            android:parentActivityName=".FilesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jordan.divvyupv12.FilesActivity" />
         </activity>
     </application>
 

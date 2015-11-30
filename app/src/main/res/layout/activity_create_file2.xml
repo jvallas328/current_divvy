@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/background_material_dark"
     tools:context="com.example.jordan.divvyupv12.CreateFileActivity">
 
     <EditText
@@ -25,14 +26,22 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:editable="true"
-        android:inputType="textMultiLine|textNoSuggestions"/>
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:textColor="#ffffff" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create File"
-        android:id="@+id/button" />
+        android:textAllCaps="false"
+        android:text="         Create File"
+        android:background="#00b12b"
+        android:textColor="#ffffff"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:paddingRight="35dp"
+        android:textSize="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +50,8 @@
         android:text="Enter a name for the file"
         android:id="@+id/textView7"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView9" />
+        android:layout_toEndOf="@+id/textView9"
+        android:textColor="#ffffff" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,6 +60,7 @@
         android:text="Enter text contents below"
         android:id="@+id/textView9"
         android:layout_below="@+id/fileName"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
