@@ -6,4 +6,5 @@
     <string name="title_activity_hub">Divvy Up Home</string>
     <string name="title_activity_files">Owned and Shared Files</string>
     <string name="title_activity_add_user_to_file">Add User to an Existing File</string>
+    <string name="title_activity_create_file">CreateFileActivity</string>
 </resources>

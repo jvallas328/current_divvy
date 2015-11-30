@@ -40,6 +40,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jordan.divvyupv12.LoginActivity" />
+
             <intent-filter>
                 <action android:name="com.example.jordan.divvyupv12.HubActivity" />
 
@@ -53,6 +54,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jordan.divvyupv12.HubActivity" />
+
             <intent-filter>
                 <action android:name="com.example.jordan.divvyupv12.FilesActivity" />
 
@@ -66,11 +68,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jordan.divvyupv12.FilesActivity" />
+
             <intent-filter>
                 <action android:name="com.example.jordan.divvyupv12.AddUserToFileActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CreateFileActivity"
+            android:label="@string/title_activity_create_file" >
         </activity>
     </application>
 

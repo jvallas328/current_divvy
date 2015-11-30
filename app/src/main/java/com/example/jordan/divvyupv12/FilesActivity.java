@@ -46,8 +46,7 @@ public class FilesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_files);
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {//allow execution of network connection on the main thread
+        if (SDK_INT > 8) {//allow execution of network connection on the main thread
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -65,21 +64,21 @@ public class FilesActivity extends AppCompatActivity {
                 try {//to get the response from server
                     InputStream in = new BufferedInputStream(conn.getInputStream());
                     Scanner httpin = new Scanner(in);
-                    for(int i = 0; httpin.hasNextLine(); i++) {
+                    for (int i = 0; httpin.hasNextLine(); i++) {
                         json += httpin.nextLine();
                     }
                     arr = new JSONArray(json);
-                    arrUser = (JSONArray)arr.get(0);
-                    arrShared = (JSONArray)arr.get(1);
+                    arrUser = (JSONArray) arr.get(0);
+                    arrShared = (JSONArray) arr.get(1);
                     System.out.println("The JSON array contents: " + arr.toString());
-                    if(arrUser.length() == 0 && arrShared.length() == 0) { //if the json array is empty, then this user does not have any files
+                    if (arrUser.length() == 0 && arrShared.length() == 0) { //if the json array is empty, then this user does not have any files
                         Toast.makeText(FilesActivity.this, "You do not have any files yet.", Toast.LENGTH_LONG).show();
                     } else {                //user exists
                         JSONObject obj;
                         String[] files = new String[arrUser.length() + arrShared.length()];
-                        fileIDs= new String[arrUser.length() + arrShared.length()];
+                        fileIDs = new String[arrUser.length() + arrShared.length()];
                         filePermissions = new String[arrUser.length() + arrShared.length()];
-                        filecontentsarr= new String[arrUser.length() + arrShared.length()];
+                        filecontentsarr = new String[arrUser.length() + arrShared.length()];
                         int count = 0;
                         for (int i = 0; i < arrUser.length(); i++) {
                             obj = arrUser.getJSONObject(i);
@@ -93,9 +92,9 @@ public class FilesActivity extends AppCompatActivity {
                         for (int i = 0; i < arrShared.length(); i++) {
                             obj = arrShared.getJSONObject(i);
                             System.out.println("(Shared) The filename is: " + obj.getString("filename"));
-                            if(obj.getString("permission").equals("1")){
+                            if (obj.getString("permission").equals("1")) {
                                 files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\n-Permission: \n >Can Edit\n";
-                            }else{
+                            } else {
                                 files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\nPermission: \n >Read-Only\n";
                             }
                             System.out.println("(Shared) The file ID is: " + obj.getString("codefile_id"));
@@ -104,7 +103,7 @@ public class FilesActivity extends AppCompatActivity {
                             filePermissions[count] = obj.getString("permission");
                             count++;
                         }
-                        ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,files);
+                        ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, files);
                         ListView listView = (ListView) findViewById(R.id.listView);
                         listView.setAdapter(filesAdapter);
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,7 +111,7 @@ public class FilesActivity extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> adapter, View view, int position, final long id) {
                                 try { //must surround with try/catch to filter errors
                                     EditText contentBox = (EditText) findViewById(R.id.fileContentsBox);
-                                    if(filePermissions[(int)id].equals("0")) {
+                                    if (filePermissions[(int) id].equals("0")) {
                                         contentBox.setClickable(false);
                                         contentBox.setCursorVisible(false);
                                         contentBox.setFocusable(false);
@@ -125,34 +124,35 @@ public class FilesActivity extends AppCompatActivity {
                                     }
                                     String contents = "";
                                     Uri.Builder builder = new Uri.Builder()
-                                            .appendQueryParameter("fileid", fileIDs[(int)id])
+                                            .appendQueryParameter("fileid", fileIDs[(int) id])
                                             .appendQueryParameter("db", "codedb");
                                     String query = builder.build().getEncodedQuery();
                                     System.out.println("The query: " + query);      //to verify query string
 
-                                    url= new URL("http://cslinux.samford.edu/codedb/loadfile.php?" + query);
+                                    url = new URL("http://cslinux.samford.edu/codedb/loadfile.php?" + query);
                                     HttpURLConnection conn2 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
                                     System.out.println("The complete url: " + url); //to verify full url
                                     try {//to get the response from server
                                         InputStream in = new BufferedInputStream(conn2.getInputStream());
                                         Scanner httpin = new Scanner(in);
-                                        for(int i = 0; httpin.hasNextLine(); i++) {
-                                            if(i != 0) {
+                                        for (int i = 0; httpin.hasNextLine(); i++) {
+                                            if (i != 0) {
                                                 contents += "\n" + httpin.nextLine();
-                                            }else {
+                                            } else {
                                                 contents += httpin.nextLine();
                                             }
                                         }
                                         final String finalContents = contents;
                                         //arr = new JSONArray(json);
                                         System.out.println("The contents: " + contents);
-                                        if(contents.equals("")) { //if the json array is empty, then this user does not have any files
+                                        if (contents.equals("")) { //if the json array is empty, then this user does not have any files
                                             Toast.makeText(FilesActivity.this, "This file does not have any content.", Toast.LENGTH_LONG).show();
                                         } else {                //user exists
-                                            EditText text = (EditText)findViewById(R.id.fileContentsBox);;
+                                            EditText text = (EditText) findViewById(R.id.fileContentsBox);
+                                            ;
                                             text.setText(contents);
 
-                                            save_file_button = (Button)findViewById(R.id.save_file);
+                                            save_file_button = (Button) findViewById(R.id.save_file);
                                             save_file_button.setOnClickListener(
                                                     new View.OnClickListener() {
                                                         @Override
@@ -164,12 +164,12 @@ public class FilesActivity extends AppCompatActivity {
                                                                         .appendQueryParameter("origtext", finalContents)
                                                                         .appendQueryParameter("newtext", newtext.getText().toString())
                                                                         .appendQueryParameter("userid", Globals.getInstance().userID)
-                                                                        .appendQueryParameter("fileid", fileIDs[(int)id])
+                                                                        .appendQueryParameter("fileid", fileIDs[(int) id])
                                                                         .appendQueryParameter("db", "codedb");
                                                                 String query = builder.build().getEncodedQuery();
                                                                 System.out.println("The query: " + query);      //to verify query string
 
-                                                                url= new URL("http://cslinux.samford.edu/codedb/patchmake.php");
+                                                                url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
                                                                 HttpURLConnection conn3 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
                                                                 conn3.setRequestMethod("POST");
                                                                 conn3.setDoOutput(true);
@@ -188,7 +188,7 @@ public class FilesActivity extends AppCompatActivity {
                                                                     BufferedReader rd = new BufferedReader(new InputStreamReader(conn3.getInputStream()));
                                                                     StringBuilder sb = new StringBuilder();
                                                                     String line;
-                                                                    while((line = rd.readLine()) != null) {
+                                                                    while ((line = rd.readLine()) != null) {
                                                                         postContents += line;
                                                                         System.out.println("entered for loop");
                                                                     }
@@ -196,11 +196,10 @@ public class FilesActivity extends AppCompatActivity {
                                                                     System.out.println("The POST contents: " + postContents);
                                                                 } catch (Exception e) {
                                                                     e.printStackTrace();
-                                                                }
-                                                                finally{//disconnect after making the connection and executing the query
+                                                                } finally {//disconnect after making the connection and executing the query
                                                                     conn3.disconnect();
                                                                 }
-                                                            }catch (Exception e){
+                                                            } catch (Exception e) {
                                                                 e.printStackTrace();
                                                             }
                                                         }
@@ -209,11 +208,10 @@ public class FilesActivity extends AppCompatActivity {
                                         }//password for db is
                                     } catch (Exception e) {
                                         e.printStackTrace();
-                                    }
-                                    finally{//disconnect after making the connection and executing the query
+                                    } finally {//disconnect after making the connection and executing the query
                                         conn2.disconnect();
                                     }
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
@@ -224,14 +222,19 @@ public class FilesActivity extends AppCompatActivity {
                     }//password for db is
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                finally{//disconnect after making the connection and executing the query
+                } finally {//disconnect after making the connection and executing the query
                     conn.disconnect();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        findViewById(R.id.create_file).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FilesActivity.this, CreateFileActivity.class));
+            }
+        });
     }
 
     @Override
