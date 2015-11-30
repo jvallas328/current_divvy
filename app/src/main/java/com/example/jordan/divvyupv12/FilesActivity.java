@@ -1,5 +1,7 @@
 package com.example.jordan.divvyupv12;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.StrictMode;
@@ -194,6 +196,20 @@ public class FilesActivity extends AppCompatActivity {
                                                                     }
                                                                     System.out.println("line " + line);
                                                                     System.out.println("The POST contents: " + postContents);
+                                                                    if(postContents.trim().equals("false")){
+                                                                        AlertDialog.Builder myAlert = new AlertDialog.Builder(FilesActivity.this);
+                                                                        myAlert.setMessage("Error. The file was not saved successfully." +
+                                                                                "\n\nPlease try again.").create();
+                                                                        myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
+                                                                            @Override
+                                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                                dialog.dismiss();
+                                                                            }
+                                                                        });
+                                                                        myAlert.show();
+                                                                    }else{
+                                                                        Toast.makeText(FilesActivity.this, "The file was saved successfully!", Toast.LENGTH_LONG).show();
+                                                                    }
                                                                 } catch (Exception e) {
                                                                     e.printStackTrace();
                                                                 } finally {//disconnect after making the connection and executing the query
