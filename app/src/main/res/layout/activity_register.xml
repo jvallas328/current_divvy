@@ -71,5 +71,7 @@
         android:onClick="showAlert"
         android:layout_below="@+id/Create_Account_Button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp" />
+        android:layout_marginTop="77dp"
+        android:background="#00b12b"
+        android:textColor="#ffffff"/>
 </RelativeLayout>

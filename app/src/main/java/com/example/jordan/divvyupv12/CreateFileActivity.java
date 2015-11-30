@@ -35,8 +35,8 @@ public class CreateFileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText fileName = (EditText) findViewById(R.id.fileName);
                 EditText fileContents = (EditText) findViewById(R.id.fileContents);
-                String json = "";
-                JSONArray arr = new JSONArray();
+                String content = "";
+                //JSONArray arr = new JSONArray();
                 int SDK_INT = android.os.Build.VERSION.SDK_INT;
                 if (SDK_INT > 8) {//allow execution of network connection on the main thread
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -57,6 +57,25 @@ public class CreateFileActivity extends AppCompatActivity {
                         try {//to get the response from server
                             InputStream in = new BufferedInputStream(conn.getInputStream());
                             Scanner httpin = new Scanner(in);
+                            while(httpin.hasNextLine()) {
+                                content += httpin.nextLine();
+                            }
+                            System.out.println("The content is " + content);
+                            if(content.trim().equals("false")){
+                                AlertDialog.Builder myAlert = new AlertDialog.Builder(CreateFileActivity.this);
+                                myAlert.setMessage("Error. The file creation was unsuccessful." +
+                                        "\n\nPlease try again.").create();
+                                myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                myAlert.show();
+                            }else{
+                                Toast.makeText(CreateFileActivity.this, "The file was created successfully!", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(CreateFileActivity.this, FilesActivity.class));
+                            }
                             //System.out.println("The id of the created file is " + httpin.toString());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -67,7 +86,6 @@ public class CreateFileActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                startActivity(new Intent(CreateFileActivity.this, FilesActivity.class));
             }
         });
     }

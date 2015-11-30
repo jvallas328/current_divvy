@@ -103,7 +103,7 @@ public class FilesActivity extends AppCompatActivity {
                             filePermissions[count] = obj.getString("permission");
                             count++;
                         }
-                        ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, files);
+                        ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, R.layout.item_view,android.R.id.text1,files);
                         ListView listView = (ListView) findViewById(R.id.listView);
                         listView.setAdapter(filesAdapter);
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
