@@ -17,7 +17,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#00b12b"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:padding="5dp" />
 
     <ListView
         android:layout_width="wrap_content"

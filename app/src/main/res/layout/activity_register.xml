@@ -73,5 +73,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="77dp"
         android:background="#00b12b"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:padding="5dp" />
 </RelativeLayout>

@@ -1,0 +1,212 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.jordan.divvyupv12.ManageAccountActivity"
+    android:background="@color/background_material_dark">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Data"
+        android:ems="10"
+        android:id="@+id/Username_Show_Field"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="false"
+        android:textColor="#ffffff"
+        android:visibility="visible"
+        android:textAlignment="center"
+        android:singleLine="false"
+        android:enabled="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Username:"
+        android:id="@+id/Username_Show_Label"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/Username_Show_Field"
+        android:layout_alignBottom="@+id/Username_Show_Field"
+        android:layout_toStartOf="@+id/Username_Show_Field"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="First Name:"
+        android:id="@+id/First_Name_Label"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/Username_Show_Label"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Data"
+        android:ems="10"
+        android:id="@+id/First_Name_Field"
+        android:clickable="false"
+        android:textColor="#ffffff"
+        android:visibility="visible"
+        android:textAlignment="center"
+        android:singleLine="false"
+        android:enabled="true"
+        android:layout_alignBottom="@+id/First_Name_Label"
+        android:layout_toEndOf="@+id/Username_Show_Label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Last Name:"
+        android:id="@+id/Last_Name_Label"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/First_Name_Label"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Data"
+        android:ems="10"
+        android:id="@+id/Last_Name_Field"
+        android:clickable="false"
+        android:textColor="#ffffff"
+        android:visibility="visible"
+        android:textAlignment="center"
+        android:singleLine="false"
+        android:enabled="true"
+        android:layout_below="@+id/First_Name_Field"
+        android:layout_alignStart="@+id/First_Name_Field" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Age:"
+        android:id="@+id/Age_Label"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/Last_Name_Field"
+        android:layout_alignEnd="@+id/Username_Show_Label"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Data"
+        android:ems="10"
+        android:id="@+id/Age_Field"
+        android:clickable="false"
+        android:textColor="#ffffff"
+        android:visibility="visible"
+        android:textAlignment="center"
+        android:singleLine="false"
+        android:enabled="true"
+        android:layout_below="@+id/Last_Name_Field"
+        android:layout_alignStart="@+id/Last_Name_Field" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Country:"
+        android:id="@+id/Country_Label"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/Age_Field"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/Age_Field" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Data"
+        android:ems="10"
+        android:id="@+id/Country_Field"
+        android:clickable="false"
+        android:textColor="#ffffff"
+        android:visibility="visible"
+        android:textAlignment="center"
+        android:singleLine="false"
+        android:enabled="true"
+        android:layout_below="@+id/Age_Label"
+        android:layout_toEndOf="@+id/Age_Label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Bio:"
+        android:id="@+id/Bio_Label"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/Country_Label"
+        android:layout_below="@+id/Country_Label" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/Bio_Field"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Bio_Label"
+        android:layout_above="@+id/Save_And_Exit_Button"
+        android:textColor="#ffffff"
+        android:textAlignment="gravity"
+        android:text="hello my name is Data"
+        android:singleLine="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save and Exit"
+        android:textAllCaps="false"
+        android:id="@+id/Save_And_Exit_Button"
+        android:textColor="#ffffff"
+        android:background="#00b12b"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/Bio_Label"
+        android:padding="5dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:textAllCaps="false"
+        android:id="@+id/Delete_Account_Button"
+        android:layout_marginEnd="39dp"
+        android:textColor="#ffffff"
+        android:background="#00b12b"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/Bio_Field"
+        android:padding="5dp" />
+
+</RelativeLayout>

@@ -18,7 +18,8 @@
         android:onClick="goToFiles"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:layout_alignEnd="@+id/Hub_Group_Button" />
+        android:layout_alignEnd="@+id/Hub_Group_Button"
+        android:padding="5dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,7 +31,8 @@
         android:layout_centerHorizontal="true"
         android:onClick="featureNotSupported"
         android:background="#00b12b"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:padding="5dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -41,8 +43,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp"
-        android:onClick="featureNotSupported"
         android:background="#00b12b"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:onClick="goToAccount"
+        android:padding="5dp" />
 
 </RelativeLayout>

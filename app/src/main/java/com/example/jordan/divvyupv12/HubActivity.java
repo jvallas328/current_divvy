@@ -48,4 +48,9 @@ public class HubActivity extends AppCompatActivity {
     public void featureNotSupported(View view){
         Toast.makeText(HubActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
     }
+
+    public void goToAccount(View view){
+        Intent intent = new Intent(this, ManageAccountActivity.class);
+        startActivity(intent);
+    }
 }
