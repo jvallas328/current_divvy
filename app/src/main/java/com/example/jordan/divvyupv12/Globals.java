@@ -13,6 +13,7 @@ package com.example.jordan.divvyupv12;
 public class Globals {
     private static Globals Instance = null;
     public String userID;
+    public String username;
     protected Globals(){};
     public static synchronized Globals getInstance(){
         if(null == Instance){

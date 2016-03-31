@@ -74,6 +74,7 @@ public class FilesActivity extends AppCompatActivity {
                     arrShared = (JSONArray) arr.get(1);
                     System.out.println("The JSON array contents: " + arr.toString());
                     if (arrUser.length() == 0 && arrShared.length() == 0) { //if the json array is empty, then this user does not have any files
+                        Thread.sleep(3000);
                         Toast.makeText(FilesActivity.this, "You do not have any files yet.", Toast.LENGTH_LONG).show();
                     } else {                //user exists
                         JSONObject obj;
@@ -95,9 +96,9 @@ public class FilesActivity extends AppCompatActivity {
                             obj = arrShared.getJSONObject(i);
                             System.out.println("(Shared) The filename is: " + obj.getString("filename"));
                             if (obj.getString("permission").equals("1")) {
-                                files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\n-Permission: \n >Can Edit\n";
+                                files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\nPermission \n >Can Edit\n";
                             } else {
-                                files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\nPermission: \n >Read-Only\n";
+                                files[count] = "Filename:\n" + obj.getString("filename") + "\n\n-Shared" + "\nPermission \n >Read-Only\n";
                             }
                             System.out.println("(Shared) The file ID is: " + obj.getString("codefile_id"));
                             fileIDs[count] = obj.getString("codefile_id");

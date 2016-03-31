@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity{
                                         JSONObject obj = arr.getJSONObject(0);
                                         System.out.println("The user_id is: " + obj.getString("id")); //brandon the "obj.getString('id')" gets the value of user_id
                                         Globals.getInstance().userID = obj.getString("id");//stores the user id from the database in the userID global variable
+                                        Globals.getInstance().username = userName.getText().toString();
                                         Toast.makeText(LoginActivity.this, "Welcome " + userName.getText().toString() + "!", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (Exception e) {

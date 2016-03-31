@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Data"
+        android:text="No Data"
         android:ems="10"
         android:id="@+id/Username_Show_Field"
         android:layout_alignParentTop="true"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Data"
+        android:text="No Data"
         android:ems="10"
         android:id="@+id/First_Name_Field"
         android:clickable="false"
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Data"
+        android:text="No Data"
         android:ems="10"
         android:id="@+id/Last_Name_Field"
         android:clickable="false"
@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Data"
+        android:text="0"
         android:ems="10"
         android:id="@+id/Age_Field"
         android:clickable="false"
@@ -143,7 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Data"
+        android:text="No Data"
         android:ems="10"
         android:id="@+id/Country_Field"
         android:clickable="false"
@@ -159,15 +159,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Bio:"
+        android:text="Bio (250 characters):"
         android:id="@+id/Bio_Label"
         android:textSize="20dp"
         android:paddingTop="10dp"
         android:textColor="#ffffff"
         android:paddingBottom="10dp"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/Country_Label"
-        android:layout_below="@+id/Country_Label" />
+        android:layout_below="@+id/Country_Label"
+        android:layout_toStartOf="@+id/Delete_Account_Button" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -181,7 +181,7 @@
         android:layout_above="@+id/Save_And_Exit_Button"
         android:textColor="#ffffff"
         android:textAlignment="gravity"
-        android:text="hello my name is Data"
+        android:text="No Data"
         android:singleLine="false" />
 
     <Button
@@ -192,9 +192,9 @@
         android:id="@+id/Save_And_Exit_Button"
         android:textColor="#ffffff"
         android:background="#00b12b"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/Bio_Label"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_alignTop="@+id/Delete_Account_Button"
+        android:layout_toStartOf="@+id/Country_Field" />
 
     <Button
         android:layout_width="wrap_content"
