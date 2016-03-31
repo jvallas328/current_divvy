@@ -108,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
         );
     }
 
+    /* comment out so that logout menu doesnt show up
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -130,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
     public void showAlert(View view) {
         AlertDialog.Builder whatisdivvy = new AlertDialog.Builder(this);

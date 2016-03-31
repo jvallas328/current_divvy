@@ -106,6 +106,9 @@ public class CreateFileActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            Toast.makeText(CreateFileActivity.this, "Goodbye!", Toast.LENGTH_LONG).show();
             return true;
         }
 

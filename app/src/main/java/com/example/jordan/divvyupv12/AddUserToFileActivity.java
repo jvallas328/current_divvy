@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,7 +52,8 @@ public class AddUserToFileActivity extends AppCompatActivity {
                         EditText usernameField = (EditText) findViewById(R.id.Username_Field);
                         EditText filenameField = (EditText) findViewById(R.id.Filename_Field);
                         RadioButton editRadioButton = (RadioButton) findViewById(R.id.Can_Edit_Select);
-                        RadioButton readonlyRadioButton = (RadioButton) findViewById(R.id.Read_Only_Select);;
+                        RadioButton readonlyRadioButton = (RadioButton) findViewById(R.id.Read_Only_Select);
+                        ;
                         String parameterID = "";
                         String json = "";
                         JSONArray arr = new JSONArray();
@@ -92,14 +95,14 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                 for (int i = 0; i < arr.length(); i++) {
                                     JSONObject obj = arr.getJSONObject(i);
                                     System.out.println("A potential match user: " + obj.getString("username"));
-                                    if(usernameField.getText().toString().equals(obj.getString("username"))){
+                                    if (usernameField.getText().toString().equals(obj.getString("username"))) {
                                         System.out.println("Match found!");
                                         parameterID = obj.getString("id");
                                         i = arr.length(); //to exit the for loop
                                     }
                                 }
                                 //if there is no match at the end of the for loop, say so
-                                if(parameterID == ""){
+                                if (parameterID == "") {
                                     AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
                                     myAlert.setMessage("No match found for the username entered. \n\nPlease check your spelling and try again!").create();
                                     myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
@@ -109,7 +112,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                         }
                                     });
                                     myAlert.show();
-                                }else {
+                                } else {
                                     try { //must surround with try/catch to filter errors
                                         JSONArray arrFull;
                                         JSONArray arrUser;
@@ -127,14 +130,14 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                         try {//to get the response from server
                                             InputStream in = new BufferedInputStream(conn2.getInputStream());
                                             Scanner httpin = new Scanner(in);
-                                            for(int i = 0; httpin.hasNextLine(); i++) {
+                                            for (int i = 0; httpin.hasNextLine(); i++) {
                                                 json3 += httpin.nextLine();
                                             }
                                             arrFull = new JSONArray(json3);
-                                            arrUser = (JSONArray)arrFull.get(0);
-                                            arrShared = (JSONArray)arrFull.get(1);
+                                            arrUser = (JSONArray) arrFull.get(0);
+                                            arrShared = (JSONArray) arrFull.get(1);
                                             System.out.println("The JSON array contents: " + arrFull.toString());
-                                            if(arrUser.length() == 0) { //if the json array is empty, then this user does not have any files
+                                            if (arrUser.length() == 0) { //if the json array is empty, then this user does not have any files
                                                 AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
                                                 myAlert.setMessage("You do not own any files yet! \n\nCreate a new file and try again! \n\n(Note: Currently, we only allow a file to be shared by its owner.)").create();
                                                 myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
@@ -151,7 +154,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                 for (int i = 0; i < arrUser.length(); i++) { //check to see if the file exists and is owned by the current user
                                                     obj = arrUser.getJSONObject(i);
                                                     System.out.println("A potential match file owned by the current user: " + obj.getString("filename"));
-                                                    if(filenameField.getText().toString().equals(obj.getString("filename"))){
+                                                    if (filenameField.getText().toString().equals(obj.getString("filename"))) {
                                                         System.out.println("Match found!");
                                                         parameterFileID = obj.getString("id");
                                                         i = arrUser.length();
@@ -161,14 +164,14 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                 for (int i = 0; i < arrShared.length(); i++) { //check to see if the file was a shared file and the current user is not the owner
                                                     obj = arrShared.getJSONObject(i);
                                                     System.out.println("A potential match file owned by the current user: " + obj.getString("filename"));
-                                                    if(filenameField.getText().toString().equals(obj.getString("filename"))){
+                                                    if (filenameField.getText().toString().equals(obj.getString("filename"))) {
                                                         System.out.println("Match found!");
                                                         parameterFileID = obj.getString("codefile_id");
                                                         i = arrShared.length();
                                                         sharedFile = true;
                                                     }
                                                 }
-                                                if(parameterFileID == ""){ //if the parameterFileID is still null after all of this, then no match was found
+                                                if (parameterFileID == "") { //if the parameterFileID is still null after all of this, then no match was found
                                                     AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
                                                     myAlert.setMessage("No match found for the filename entered. \n\nPlease check your spelling and try again!").create();
                                                     myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
@@ -190,7 +193,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                     myAlert.show();
                                                 } else {    //file  was found and owned by the user
                                                     String permissionValue = "";
-                                                    if(editRadioButton.isChecked()){ //permission should be a 1
+                                                    if (editRadioButton.isChecked()) { //permission should be a 1
                                                         permissionValue = "1";
                                                     } else {
                                                         permissionValue = "0";
@@ -221,7 +224,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                                             conn3.disconnect();
                                                         }
                                                         //go to hub page if the login was successful
-                                                        if(json2.equals("false")){
+                                                        if (json2.equals("false")) {
                                                             AlertDialog.Builder myAlert = new AlertDialog.Builder(AddUserToFileActivity.this);
                                                             myAlert.setMessage("The request was unsuccessful. \n\nThe user you wish to add to this file may already have shared permissions for the file.").create();
                                                             myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
@@ -243,11 +246,10 @@ public class AddUserToFileActivity extends AppCompatActivity {
                                             }//password for db is
                                         } catch (Exception e) {
                                             e.printStackTrace();
-                                        }
-                                        finally{//disconnect after making the connection and executing the query
+                                        } finally {//disconnect after making the connection and executing the query
                                             conn2.disconnect();
                                         }
-                                    }catch (Exception e){
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                 }
@@ -258,5 +260,30 @@ public class AddUserToFileActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_user_to_file, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            Toast.makeText(AddUserToFileActivity.this, "Goodbye!", Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

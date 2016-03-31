@@ -32,7 +32,9 @@ public class HubActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(HubActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            Toast.makeText(HubActivity.this, "Goodbye!", Toast.LENGTH_LONG).show();
             return true;
         }
 
