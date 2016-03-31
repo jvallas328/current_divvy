@@ -10,34 +10,34 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Files"
+        android:text="Manage Files"
         android:textAllCaps="false"
         android:id="@+id/Hub_Files_button"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="76dp"
         android:onClick="goToFiles"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:layout_alignEnd="@+id/Hub_Group_Button"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Groups"
+        android:text="Manage Groups"
         android:textAllCaps="false"
         android:id="@+id/Hub_Group_Button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:onClick="featureNotSupported"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Account"
+        android:text="Manage Account"
         android:textAllCaps="false"
         android:id="@+id/Your_Account_Button"
         android:layout_alignParentBottom="true"

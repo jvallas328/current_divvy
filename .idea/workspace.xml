@@ -22,18 +22,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1eff3daa-892d-46ac-a6f8-5426d9e08cd5" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Stephen\Documents\GitHub\current_divvy\app\hs_err_pid7516.log" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Stephen\Documents\GitHub\current_divvy\app\hs_err_pid7748.log" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/AddUserToFileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/AddUserToFileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/CreateFileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/CreateFileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/FilesActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/FilesActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/HubActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/HubActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/ManageAccountActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/ManageAccountActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/RegisterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jordan/divvyupv12/RegisterActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_hub.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_hub.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="current_divvy.iws" />
     <ignored path=".idea/workspace.xml" />
