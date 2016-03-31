@@ -1,11 +1,13 @@
 package com.example.jordan.divvyupv12;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class HubActivity extends AppCompatActivity {
@@ -14,6 +16,12 @@ public class HubActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
+        //TextView txt = (TextView) findViewById(R.id.filesButton_header);
+        //txt.setPaintFlags(txt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //txt = (TextView) findViewById(R.id.groupsButton_header);
+        //txt.setPaintFlags(txt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //txt = (TextView) findViewById(R.id.accountButton_header);
+        //txt.setPaintFlags(txt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override

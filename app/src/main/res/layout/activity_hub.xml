@@ -19,33 +19,75 @@
         android:textColor="#ffffff"
         android:padding="5dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:textSize="17dp"
+        android:layout_alignStart="@+id/filesButton_header"
+        android:layout_alignEnd="@+id/accountButton_header" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Manage Groups"
         android:textAllCaps="false"
-        android:id="@+id/Hub_Group_Button"
+        android:id="@+id/Hub_Groups_Button"
         android:onClick="featureNotSupported"
         android:background="#00b12b"
         android:textColor="#ffffff"
         android:padding="5dp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:textSize="17dp"
+        android:layout_alignEnd="@+id/accountButton_header"
+        android:layout_alignStart="@+id/accountButton_header" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Manage Account"
         android:textAllCaps="false"
-        android:id="@+id/Your_Account_Button"
+        android:id="@+id/Hub_Account_Button"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp"
         android:background="#00b12b"
         android:textColor="#ffffff"
         android:onClick="goToAccount"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:layout_alignStart="@+id/accountButton_header"
+        android:layout_alignEnd="@+id/filesButton_header" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create, Edit, Share, and Delete Files"
+        android:id="@+id/filesButton_header"
+        android:paddingTop="45dp"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:paddingBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create and Leave Groups"
+        android:id="@+id/groupsButton_header"
+        android:paddingTop="50dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_above="@+id/Hub_Groups_Button"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Access your info or Delete Account"
+        android:id="@+id/accountButton_header"
+        android:paddingTop="50dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="10dp"
+        android:layout_above="@+id/Hub_Account_Button"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp" />
 
 </RelativeLayout>
