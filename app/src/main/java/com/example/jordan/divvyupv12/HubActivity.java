@@ -55,8 +55,9 @@ public class HubActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void featureNotSupported(View view){
-        Toast.makeText(HubActivity.this, "Feature Coming Soon!", Toast.LENGTH_LONG).show();
+    public void goToGroups(View view){
+        Intent intent = new Intent(this, GroupsActivity.class);
+        startActivity(intent);
     }
 
     public void goToAccount(View view){

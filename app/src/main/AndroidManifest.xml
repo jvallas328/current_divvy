@@ -91,12 +91,27 @@
         <activity
             android:name=".ManageAccountActivity"
             android:label="@string/title_activity_manage_account"
-            android:parentActivityName=".HubActivity">
+            android:parentActivityName=".HubActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jordan.divvyupv12.HubActivity" />
+
             <intent-filter>
                 <action android:name="com.example.jordan.divvyupv12.ManageAccountActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GroupsActivity"
+            android:label="@string/title_activity_groups"
+            android:parentActivityName=".HubActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jordan.divvyupv12.HubActivity" />
+
+            <intent-filter>
+                <action android:name="com.example.jordan.divvyupv12.GroupsActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
