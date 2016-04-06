@@ -16,7 +16,8 @@
         android:layout_alignEnd="@+id/textView7"
         android:layout_toEndOf="@+id/textView9"
         android:inputType="textNoSuggestions"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,44 +26,50 @@
         android:layout_below="@+id/fileName"
         android:layout_alignParentStart="true"
         android:layout_marginTop="38dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:editable="true"
         android:inputType="textMultiLine|textNoSuggestions"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:background="#242b24"
+        android:layout_above="@+id/button" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="         Create File"
+        android:text="Create File"
         android:background="#00b12b"
         android:textColor="#ffffff"
         android:id="@+id/button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:paddingRight="35dp"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Enter a name for the file"
+        android:text="Enter a name for the file:"
         android:id="@+id/textView7"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView9"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/fileContents"
+        android:textSize="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Enter text contents below"
+        android:text="Enter text contents below:"
         android:id="@+id/textView9"
         android:layout_below="@+id/fileName"
         android:layout_alignParentStart="true"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp" />
 
 </RelativeLayout>
