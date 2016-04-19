@@ -74,7 +74,8 @@
         android:background="#00b12b"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/radioGroup"
-        android:layout_alignStart="@+id/radioGroup" />
+        android:layout_alignStart="@+id/radioGroup"
+        android:textSize="17dp" />
 
     <TextView
         android:layout_width="wrap_content"

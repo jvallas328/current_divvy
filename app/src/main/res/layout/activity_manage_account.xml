@@ -189,10 +189,14 @@
         android:id="@+id/Save_And_Exit_Button"
         android:textColor="#ffffff"
         android:background="#00b12b"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/Country_Label" />
+        android:padding="15dp"
+        android:layout_alignTop="@+id/Delete_Account_Button"
+        android:layout_alignParentStart="true"
+        android:paddingRight="0dp"
+        android:paddingLeft="0dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
+        android:textSize="17dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -202,9 +206,9 @@
         android:id="@+id/Delete_Account_Button"
         android:textColor="#ffffff"
         android:background="#00b12b"
-        android:padding="5dp"
+        android:padding="15dp"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/Bio_Field"
-        android:layout_marginEnd="34dp" />
+        android:textSize="17dp" />
 
 </RelativeLayout>

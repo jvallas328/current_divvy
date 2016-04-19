@@ -1,10 +1,15 @@
 package com.example.jordan.divvyupv12;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class GroupsActivity extends AppCompatActivity {
@@ -13,6 +18,25 @@ public class GroupsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups2);
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {//allow execution of network connection on the main thread
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            System.out.println("CURRENT USER ID IS " + Globals.getInstance().userID);
+
+/*            ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, R.layout.item_view, android.R.id.text1, files);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(filesAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapter, View view, int position, final long id) {
+                }
+
+            });
+*/
+        }
     }
 
     @Override

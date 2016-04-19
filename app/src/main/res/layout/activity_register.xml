@@ -26,7 +26,8 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:paddingTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Account"
+        android:textSize="17dp"
         android:textAllCaps="false"
         android:id="@+id/Create_Account_Button"
         android:layout_below="@+id/Password_Field"
@@ -69,10 +71,12 @@
         android:textAllCaps="false"
         android:id="@+id/whatisdivvybutton"
         android:onClick="showAlert"
-        android:layout_below="@+id/Create_Account_Button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_below="@+id/Create_Account_Button"
+        android:layout_alignStart="@+id/Create_Account_Button"
+        android:layout_marginTop="78dp"
+        android:layout_alignEnd="@+id/Create_Account_Button"
+        android:textSize="17dp" />
 </RelativeLayout>

@@ -18,7 +18,8 @@
         android:layout_centerHorizontal="true"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:padding="15dp" />
+        android:padding="10dp"
+        android:textSize="17dp" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -54,7 +55,9 @@
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/fileContentsBox"
         android:background="#00b12b"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:padding="10dp"
+        android:textSize="17dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -67,7 +70,8 @@
         android:onClick="goToFiles"
         android:layout_toEndOf="@+id/save_file"
         android:background="#00b12b"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textSize="17dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -80,6 +84,7 @@
         android:textColor="#ffffff"
         android:padding="10dp"
         android:layout_alignTop="@+id/save_file"
-        android:layout_alignEnd="@+id/fileContentsBox" />
+        android:layout_alignEnd="@+id/fileContentsBox"
+        android:textSize="17dp" />
 
 </RelativeLayout>
