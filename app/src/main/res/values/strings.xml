@@ -8,5 +8,6 @@
     <string name="title_activity_add_user_to_file">Add User to an Existing File</string>
     <string name="title_activity_create_file">Create a New File</string>
     <string name="title_activity_manage_account">Manage Your Account</string>
-    <string name="title_activity_groups">Current Groups</string>
+    <string name="title_activity_groups">Manage Your Groups</string>
+    <string name="title_activity_create_group">Create a New Group</string>
 </resources>

@@ -17,30 +17,20 @@
         android:id="@+id/manage_group_button"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:padding="15dp"
-        android:layout_alignTop="@+id/create_group_button"
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/group_list"
+        android:divider="#242b24"
+        android:dividerHeight="4dp"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/button4"
         android:layout_above="@+id/create_group_button" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/group_info"
-        android:editable="true"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:autoText="false"
-        android:textColor="#ffffff"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/group_list"
-        android:layout_below="@+id/button4"
-        android:layout_above="@+id/delete_group_button" />
 
     <Button
         android:layout_width="wrap_content"
@@ -50,7 +40,8 @@
         android:textAllCaps="false"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:padding="10dp"
+        android:padding="5dp"
+        android:textSize="17dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
@@ -75,7 +66,58 @@
         android:id="@+id/delete_group_button"
         android:background="#00b12b"
         android:textColor="#ffffff"
-        android:padding="11dp"
-        android:layout_alignTop="@+id/manage_group_button"
-        android:layout_alignEnd="@+id/group_info" />
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/group_files_list" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/members_label"
+        android:layout_below="@+id/button4"
+        android:layout_toEndOf="@+id/group_list"
+        android:text="Members:"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:inputType="none"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/group_files_label"
+        android:inputType="none"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/group_list"
+        android:text="Shared Files:"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/members_list"
+        android:divider="#242b24"
+        android:dividerHeight="4dp"
+        android:layout_toEndOf="@+id/group_list"
+        android:layout_above="@+id/group_files_label"
+        android:layout_below="@+id/members_label" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/group_files_list"
+        android:divider="#242b24"
+        android:dividerHeight="4dp"
+        android:layout_toEndOf="@+id/group_list"
+        android:layout_above="@+id/manage_group_button"
+        android:layout_below="@+id/group_files_label" />
 </RelativeLayout>
