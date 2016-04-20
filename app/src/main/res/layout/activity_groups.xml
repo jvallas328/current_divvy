@@ -28,9 +28,9 @@
         android:id="@+id/group_list"
         android:divider="#242b24"
         android:dividerHeight="4dp"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button4"
-        android:layout_above="@+id/create_group_button" />
+        android:layout_below="@+id/groups_label"
+        android:layout_above="@+id/members_label"
+        android:layout_marginBottom="30dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -46,22 +46,10 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add User to File"
-        android:id="@+id/button4"
-        android:textAllCaps="false"
-        android:onClick="goToFiles"
-        android:background="#00b12b"
-        android:textColor="#ffffff"
-        android:layout_above="@+id/group_list"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Leave Group"
+        android:text="Delete Group"
         android:textAllCaps="false"
         android:id="@+id/delete_group_button"
         android:background="#00b12b"
@@ -69,14 +57,12 @@
         android:padding="5dp"
         android:textSize="17dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/group_files_list" />
+        android:layout_alignEnd="@+id/members_list" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/members_label"
-        android:layout_below="@+id/button4"
-        android:layout_toEndOf="@+id/group_list"
         android:text="Members:"
         android:clickable="false"
         android:focusable="false"
@@ -84,22 +70,9 @@
         android:cursorVisible="false"
         android:inputType="none"
         android:textColor="#ffffff"
-        android:textSize="20dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/group_files_label"
-        android:inputType="none"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:cursorVisible="false"
+        android:textSize="20dp"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/group_list"
-        android:text="Shared Files:"
-        android:textColor="#ffffff"
-        android:textSize="20dp" />
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -107,17 +80,33 @@
         android:id="@+id/members_list"
         android:divider="#242b24"
         android:dividerHeight="4dp"
-        android:layout_toEndOf="@+id/group_list"
-        android:layout_above="@+id/group_files_label"
-        android:layout_below="@+id/members_label" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/manage_group_button"
+        android:layout_below="@+id/members_label"
+        android:layout_marginBottom="5dp" />
 
-    <ListView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/group_files_list"
-        android:divider="#242b24"
-        android:dividerHeight="4dp"
-        android:layout_toEndOf="@+id/group_list"
-        android:layout_above="@+id/manage_group_button"
-        android:layout_below="@+id/group_files_label" />
+        android:id="@+id/groups_label"
+        android:inputType="none"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:text="Groups: (click to view members)"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_above="@+id/members_label"
+        android:layout_alignParentStart="true"
+        android:background="#242b24"
+        android:layout_alignEnd="@+id/group_list" />
 </RelativeLayout>
