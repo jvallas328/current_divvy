@@ -33,52 +33,65 @@ public class CreateGroupActivity extends AppCompatActivity {
                 EditText groupName = (EditText) findViewById(R.id.group_name_field);
                 String content = "";
 
-                int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                if (SDK_INT > 8) {//allow execution of network connection on the main thread
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                            .permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
-                    try { //must surround with try/catch to filter errors
-                        Uri.Builder builder = new Uri.Builder()
+                //require the group name field to not be empty
+                if(groupName.getText().toString().equals("")){
+                    AlertDialog.Builder myAlert = new AlertDialog.Builder(CreateGroupActivity.this);
+                    myAlert.setMessage("Please give the new group a name.").create();
+                    myAlert.setPositiveButton("Ok!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    myAlert.show();
+                } else {
+                    int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                    if (SDK_INT > 8) {//allow execution of network connection on the main thread
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                .permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+                        try { //must surround with try/catch to filter errors
+                            Uri.Builder builder = new Uri.Builder()
 
-                                .appendQueryParameter("userid", Globals.getInstance().userID)
-                                .appendQueryParameter("name", groupName.getText().toString())
-                                .appendQueryParameter("db", "codedb");
-                        String query = builder.build().getEncodedQuery();
-                        System.out.println("The query: " + query);      //to verify query string
-                        URL url = new URL("http://cslinux.samford.edu/codedb/addgroup.php?" + query);
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        System.out.println("The complete url: " + url); //to verify full url
-                        try {//to get the response from server
-                            InputStream in = new BufferedInputStream(conn.getInputStream());
-                            Scanner httpin = new Scanner(in);
-                            while(httpin.hasNextLine()) {
-                                content += httpin.nextLine();
+                                    .appendQueryParameter("userid", Globals.getInstance().userID)
+                                    .appendQueryParameter("name", groupName.getText().toString())
+                                    .appendQueryParameter("db", "codedb");
+                            String query = builder.build().getEncodedQuery();
+                            System.out.println("The query: " + query);      //to verify query string
+                            URL url = new URL("http://cslinux.samford.edu/codedb/addgroup.php?" + query);
+                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                            System.out.println("The complete url: " + url); //to verify full url
+                            try {//to get the response from server
+                                InputStream in = new BufferedInputStream(conn.getInputStream());
+                                Scanner httpin = new Scanner(in);
+                                while (httpin.hasNextLine()) {
+                                    content += httpin.nextLine();
+                                }
+                                System.out.println("The content is " + content);
+                                if (content.trim().equals("false")) {
+                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(CreateGroupActivity.this);
+                                    myAlert.setMessage("Error. The group creation was unsuccessful." +
+                                            "\n\nPlease try again.").create();
+                                    myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    myAlert.show();
+                                } else {
+                                    Toast.makeText(CreateGroupActivity.this, "The group was created successfully!", Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(CreateGroupActivity.this, GroupsActivity.class));
+                                }
+                                //System.out.println("The id of the created file is " + httpin.toString());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {//disconnect after making the connection and executing the query
+                                conn.disconnect();
                             }
-                            System.out.println("The content is " + content);
-                            if(content.trim().equals("false")){
-                                AlertDialog.Builder myAlert = new AlertDialog.Builder(CreateGroupActivity.this);
-                                myAlert.setMessage("Error. The group creation was unsuccessful." +
-                                        "\n\nPlease try again.").create();
-                                myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                                myAlert.show();
-                            }else{
-                                Toast.makeText(CreateGroupActivity.this, "The group was created successfully!", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(CreateGroupActivity.this, GroupsActivity.class));
-                            }
-                            //System.out.println("The id of the created file is " + httpin.toString());
                         } catch (Exception e) {
                             e.printStackTrace();
-                        } finally {//disconnect after making the connection and executing the query
-                            conn.disconnect();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
             }

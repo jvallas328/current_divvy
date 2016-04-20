@@ -77,7 +77,7 @@ public class FilesActivity extends AppCompatActivity {
                     if (arrUser.length() == 0 && arrShared.length() == 0) { //if the json array is empty, then this user does not have any files
                         Thread.sleep(3000);
                         Toast.makeText(FilesActivity.this, "You do not have any files yet.", Toast.LENGTH_LONG).show();
-                    } else {                //user exists
+                    } else {                //files exists
                         JSONObject obj;
                         String[] files = new String[arrUser.length() + arrShared.length()];
                         fileIDs = new String[arrUser.length() + arrShared.length()];
