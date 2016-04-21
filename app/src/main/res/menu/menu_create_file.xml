@@ -4,4 +4,10 @@
     tools:context="com.example.jordan.divvyupv12.CreateFileActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_jumptofiles" android:title="@string/jumptofiles"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_jumptogroups" android:title="@string/jumptogroups"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_jumptoaccount" android:title="@string/jumptoaccount"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

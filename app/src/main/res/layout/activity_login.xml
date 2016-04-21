@@ -9,7 +9,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Now"
+        android:text="Create an Account"
         android:textAllCaps="false"
         android:id="@+id/register_now"
         android:clickable="true"

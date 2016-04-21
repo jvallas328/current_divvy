@@ -2,6 +2,9 @@
     <string name="app_name">Welcome to Divvy up! </string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Logout</string>
+    <string name="jumptofiles">Go to Files</string>
+    <string name="jumptogroups">Go to Groups</string>
+    <string name="jumptoaccount">Go to Account</string>
     <string name="title_activity_register">Create an Account</string>
     <string name="title_activity_hub">Divvy Up Home</string>
     <string name="title_activity_files">Owned and Shared Files</string>
@@ -10,4 +13,5 @@
     <string name="title_activity_manage_account">Manage Your Account</string>
     <string name="title_activity_groups">Manage Your Groups</string>
     <string name="title_activity_create_group">Create a New Group</string>
+    <string name="title_activity_manage_group">Manage Group Members</string>
 </resources>

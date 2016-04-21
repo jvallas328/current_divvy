@@ -282,6 +282,18 @@ public class AddUserToFileActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(AddUserToFileActivity.this, "Goodbye!", Toast.LENGTH_LONG).show();
             return true;
+        } else if (id == R.id.action_jumptofiles) {
+            Intent intent = new Intent(this, FilesActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_jumptogroups) {
+            Intent intent = new Intent(this, GroupsActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_jumptoaccount) {
+            Intent intent = new Intent(this, ManageAccountActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
