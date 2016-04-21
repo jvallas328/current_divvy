@@ -364,7 +364,29 @@ public class FilesActivity extends AppCompatActivity {
         findViewById(R.id.share_file_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FilesActivity.this, ShareFileActivity.class));
+                AlertDialog.Builder myAlert = new AlertDialog.Builder(FilesActivity.this);
+                myAlert.setMessage("How would you like to share a file?").create();
+                myAlert.setPositiveButton("With a Group!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(FilesActivity.this, ShareFileActivity.class));
+                        dialog.dismiss();
+                    }
+                });
+                myAlert.setNegativeButton("With a User!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(FilesActivity.this, AddUserToFileActivity.class));
+                        dialog.dismiss();
+                    }
+                });
+                myAlert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                myAlert.show();
             }
         });
     }
@@ -398,8 +420,8 @@ public class FilesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goToFiles(View view) {
-        Intent intent = new Intent(this, AddUserToFileActivity.class);
-        startActivity(intent);
-    }
+    //public void goToFiles(View view) {
+    //    Intent intent = new Intent(this, AddUserToFileActivity.class);
+    //    startActivity(intent);
+    //}
 }
