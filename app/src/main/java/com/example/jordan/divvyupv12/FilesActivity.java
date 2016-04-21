@@ -360,6 +360,13 @@ public class FilesActivity extends AppCompatActivity {
                 startActivity(new Intent(FilesActivity.this, CreateFileActivity.class));
             }
         });
+
+        findViewById(R.id.share_file_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FilesActivity.this, ShareFileActivity.class));
+            }
+        });
     }
 
     @Override

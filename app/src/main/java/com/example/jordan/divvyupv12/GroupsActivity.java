@@ -163,7 +163,7 @@ public class GroupsActivity extends AppCompatActivity {
                                                         System.out.println("obj2 = " + obj2.toString());
                                                         //System.out.println("Does groupmemberIDs[" + i + "]:" + groupmemberIDs[i] + " == obj2.getString('id'), which is: " + obj2.getString("id"));
                                                         if (Globals.getInstance().userID.equals(obj2.getString("id"))) {
-                                                            usernames[i] = obj2.getString("username") + " (Owner)";
+                                                            usernames[0] = obj2.getString("username") + " (Owner)";
                                                             break;
                                                         }
                                                     }

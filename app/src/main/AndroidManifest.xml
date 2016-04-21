@@ -134,15 +134,29 @@
             android:name=".ManageGroupActivity"
             android:label="@string/title_activity_manage_group"
             android:parentActivityName=".GroupsActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.jordan.divvyupv12.GroupsActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jordan.divvyupv12.GroupsActivity" />
 
-        <intent-filter>
-            <action android:name="com.example.jordan.divvyupv12.ManageGroupActivity" />
+            <intent-filter>
+                <action android:name="com.example.jordan.divvyupv12.ManageGroupActivity" />
 
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShareFileActivity"
+            android:label="@string/title_activity_share_file"
+            android:parentActivityName=".FilesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jordan.divvyupv12.FilesActivity" />
+
+            <intent-filter>
+                <action android:name="com.example.jordan.divvyupv12.ShareFileActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 
