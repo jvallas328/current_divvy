@@ -52,9 +52,4 @@ public class ShareFileActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void goToFiles(View view) {
-        Intent intent = new Intent(this, AddUserToFileActivity.class);
-        startActivity(intent);
-    }
 }
