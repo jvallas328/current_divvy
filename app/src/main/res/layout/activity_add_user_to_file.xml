@@ -24,9 +24,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Permission"
         android:id="@+id/textView6"
-        android:layout_centerVertical="true"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/Filename_Field"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:layout_marginTop="15dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -69,13 +70,14 @@
         android:text="Add User to File"
         android:textAllCaps="false"
         android:id="@+id/add_user_to_file_actual"
-        android:layout_marginBottom="57dp"
         android:textColor="#ffffff"
         android:background="#00b12b"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/radioGroup"
+        android:textSize="17dp"
+        android:padding="5dp"
+        android:layout_above="@+id/spinner"
         android:layout_alignStart="@+id/radioGroup"
-        android:textSize="17dp" />
+        android:layout_alignEnd="@+id/radioGroup"
+        android:layout_marginBottom="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,4 +111,15 @@
         android:layout_alignEnd="@+id/Filename_Field"
         android:layout_alignStart="@+id/Filename_Field"
         android:textColor="#ffffff" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:spinnerMode="dialog"
+        android:layout_marginRight="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/textView8" />
+
 </RelativeLayout>

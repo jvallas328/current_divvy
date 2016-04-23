@@ -3,6 +3,7 @@ package com.example.jordan.divvyupv12;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +11,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -31,6 +35,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddUserToFileActivity extends AppCompatActivity {
@@ -41,6 +46,76 @@ public class AddUserToFileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user_to_file);
         OnClickButtonListener();
+
+
+        String json = "";
+        JSONArray arr = null;
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {//allow execution of network connection on the main thread
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            try { //must surround with try/catch to filter errors
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("db", "codedb");
+                String query = builder.build().getEncodedQuery();
+                System.out.println("The query: " + query);      //to verify query string
+
+                URL url = new URL("http://cslinux.samford.edu/codedb/getusers.php?" + query);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                System.out.println("The complete url: " + url); //to verify full url
+                try {//to get the response from server
+                    InputStream in = new BufferedInputStream(conn.getInputStream());
+                    Scanner httpin = new Scanner(in);
+                    while (httpin.hasNextLine()) {
+                        json += httpin.nextLine();
+                    }
+                    arr = new JSONArray(json);
+                    System.out.println("The JSON array contents: " + arr.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {//disconnect after making the connection and executing the query
+                    conn.disconnect();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        Spinner dropdown = (Spinner) findViewById(R.id.spinner);
+        JSONObject obj = null;
+        String placeholder = "";
+        ArrayList arrayList = new ArrayList();
+        try {
+            for (int i = 0; i < arr.length(); i++) {
+                obj = arr.getJSONObject(i);
+                placeholder = obj.getString("username");
+                arrayList.add(placeholder);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        arrayList.add(0, "View Current Members...");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item_view, android.R.id.text1, arrayList){
+
+            @Override
+            public View getDropDownView(int position, View convertView,ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView)view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.BLACK);
+                return view;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView)view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
+        dropdown.setAdapter(adapter);
     }
 
     public void OnClickButtonListener() {
