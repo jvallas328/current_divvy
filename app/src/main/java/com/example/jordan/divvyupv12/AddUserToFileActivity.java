@@ -127,8 +127,7 @@ public class AddUserToFileActivity extends AppCompatActivity {
                         EditText usernameField = (EditText) findViewById(R.id.Username_Field);
                         EditText filenameField = (EditText) findViewById(R.id.Filename_Field);
                         RadioButton editRadioButton = (RadioButton) findViewById(R.id.Can_Edit_Select);
-                        RadioButton readonlyRadioButton = (RadioButton) findViewById(R.id.Read_Only_Select);
-                        ;
+
                         String parameterID = "";
                         String json = "";
                         JSONArray arr = new JSONArray();

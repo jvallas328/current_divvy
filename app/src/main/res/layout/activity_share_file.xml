@@ -10,4 +10,122 @@
     tools:context="com.example.jordan.divvyupv12.ShareFileActivity"
     android:background="@color/background_material_dark">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Group you wish to share the file with:"
+        android:id="@+id/textView10"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_alignParentTop="true" />
+
+    EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Group_Name_Field"
+        android:imeOptions="actionNone"
+        android:inputType="textNoSuggestions"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/radioGroup2"
+        android:layout_alignEnd="@+id/radioGroup2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name of the file you own:"
+        android:id="@+id/textView11"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/spinner2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:imeOptions="actionNone"
+        android:inputType="textNoSuggestions"
+        android:id="@+id/File_Name_Field"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/textView11"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_alignEnd="@+id/textView11" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Permission"
+        android:id="@+id/textView12"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/File_Name_Field"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:id="@+id/radioGroup2"
+        android:layout_below="@+id/textView12"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <RadioButton
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:text="Can Edit"
+            android:id="@+id/Can_Edit_Select_Group"
+            android:textSize="15dp"
+            android:layout_alignStart="@+id/Read_Only_Select_Group"
+            android:layout_alignEnd="@+id/Read_Only_Select_Group"
+            android:layout_weight="0.26"
+            android:checked="false"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp" />
+
+        <RadioButton
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:text="Read-Only"
+            android:id="@+id/Read_Only_Select_Group"
+            android:textSize="15dp"
+            android:layout_below="@+id/Can_Edit_Select_Group"
+            android:layout_alignEnd="@+id/Filename_Field"
+            android:layout_alignStart="@+id/Filename_Field"
+            android:enabled="true"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:checked="false" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share File with Group"
+        android:textAllCaps="false"
+        android:id="@+id/add_group_to_file_actual"
+        android:textColor="#ffffff"
+        android:background="#00b12b"
+        android:textSize="17dp"
+        android:padding="5dp"
+        android:layout_below="@+id/radioGroup2"
+        android:layout_marginTop="77dp"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_alignEnd="@+id/textView11" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:spinnerMode="dialog"
+        android:divider="#00b12b"
+        android:dividerHeight="4dp"
+        android:layout_marginRight="35dp"
+        android:layout_below="@+id/textView10"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

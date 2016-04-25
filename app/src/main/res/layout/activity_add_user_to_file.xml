@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User you wish to add to the file:"
+        android:text="User you wish to share the file with:"
         android:id="@+id/textView5"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -67,7 +67,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add User to File"
+        android:text="Share File with User"
         android:textAllCaps="false"
         android:id="@+id/add_user_to_file_actual"
         android:textColor="#ffffff"

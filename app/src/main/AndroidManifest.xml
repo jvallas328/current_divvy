@@ -68,7 +68,7 @@
         </activity>
         <activity
             android:name=".AddUserToFileActivity"
-            android:label="Add User to an Existing File"
+            android:label="@string/title_activity_add_user_to_file"
             android:parentActivityName=".FilesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
