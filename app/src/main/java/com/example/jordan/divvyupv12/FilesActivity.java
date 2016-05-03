@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,10 +32,18 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class FilesActivity extends AppCompatActivity {
     public static Button save_file_button, delete_file_button;
+    String contentForRealTime = "";
     String[] items;
     String[] fileIDs;
     String[] filePermissions;
@@ -43,6 +53,7 @@ public class FilesActivity extends AppCompatActivity {
     JSONArray arr = new JSONArray();
     JSONArray arrUser = new JSONArray();
     JSONArray arrShared = new JSONArray();
+    //ScheduledExecutorService executor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +118,16 @@ public class FilesActivity extends AppCompatActivity {
                             filePermissions[count] = obj.getString("permission");
                             count++;
                         }
+
                         ArrayAdapter<String> filesAdapter = new ArrayAdapter<String>(this, R.layout.item_view, android.R.id.text1, files);
                         ListView listView = (ListView) findViewById(R.id.listView);
                         listView.setAdapter(filesAdapter);
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapter, View view, int position, final long id) {
+                                Globals.getInstance().currentCodeFilePosition = position;
+                                Globals.getInstance().currentActivity = FilesActivity.this;
+
                                 try { //must surround with try/catch to filter errors
                                     EditText contentBox = (EditText) findViewById(R.id.fileContentsBox);
                                     if (filePermissions[(int) id].equals("0")) {
@@ -147,7 +162,7 @@ public class FilesActivity extends AppCompatActivity {
                                             }
                                         }
                                         final String finalContents = contents;
-                                        //arr = new JSONArray(json);
+
                                         System.out.println("The contents: " + contents);
                                         //now handle loading the files when selected... if a file is empty, display a toast that there is no contents
                                         if (contents.equals("")) {
@@ -155,6 +170,8 @@ public class FilesActivity extends AppCompatActivity {
                                         }
                                         EditText text = (EditText) findViewById(R.id.fileContentsBox);
                                         text.setText(contents);
+                                        Globals.getInstance().oldContent = contents; //for the very first initial load of file, this is my "Old Contents"
+                                        Toast.makeText(FilesActivity.this, "Files are Saved Automatically.", Toast.LENGTH_LONG).show();
 
                                         //handle the file being deleted
                                         delete_file_button = (Button) findViewById(R.id.delete_file);
@@ -165,14 +182,14 @@ public class FilesActivity extends AppCompatActivity {
                                                         //do not let a user delete a file that has been shared with them (they do not own it!)
                                                         //but only do this check if the user has shared files in their list to begin with
                                                         Boolean goodDelete = true; //if true, the delete is good and should be processed, else it is a shared file and should not be processed
-                                                        if(arrShared.length() != 0) {
+                                                        if (arrShared.length() != 0) {
                                                             JSONObject obj2;
                                                             int shared_codefile_ids;
                                                             try {
                                                                 for (int i = 0; i < arrShared.length(); i++) {
                                                                     obj2 = arrShared.getJSONObject(i);
                                                                     shared_codefile_ids = Integer.parseInt(obj2.getString("codefile_id"));
-                                                                    if(shared_codefile_ids == Integer.parseInt(fileIDs[(int) id])){
+                                                                    if (shared_codefile_ids == Integer.parseInt(fileIDs[(int) id])) {
                                                                         goodDelete = false;
                                                                         AlertDialog.Builder myAlert = new AlertDialog.Builder(FilesActivity.this);
                                                                         myAlert.setMessage("You cannot delete a file that you do not own!").create();
@@ -190,7 +207,7 @@ public class FilesActivity extends AppCompatActivity {
                                                             }
                                                         }
 
-                                                        if(goodDelete == true){
+                                                        if (goodDelete == true) {
                                                             //alert a confirmation message
                                                             AlertDialog.Builder myAlert1 = new AlertDialog.Builder(FilesActivity.this);
                                                             myAlert1.setMessage("Are you sure you want to delete this file? \n\nThis will permanently delete your file and " +
@@ -225,6 +242,7 @@ public class FilesActivity extends AppCompatActivity {
                                                                                     System.out.println("Response is " + response);
                                                                                     Toast.makeText(FilesActivity.this, "The file was deleted successfully.", Toast.LENGTH_LONG).show();
                                                                                     finish();                   //finish and reload the activity to get rid of the file in the list
+                                                                                    Globals.getInstance().currentActivity = null;
                                                                                     startActivity(getIntent());
                                                                                 } else if (response == false) {                        //false - error occurred/did not work
                                                                                     System.out.println("Response is " + response);
@@ -264,73 +282,6 @@ public class FilesActivity extends AppCompatActivity {
                                                 }
                                         );
 
-                                        save_file_button = (Button) findViewById(R.id.save_file);
-                                        save_file_button.setOnClickListener(
-                                                new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        EditText newtext = (EditText) findViewById(R.id.fileContentsBox);
-                                                        try { //must surround with try/catch to filter errors
-                                                            //String contents = "";
-                                                            Uri.Builder builder = new Uri.Builder()
-                                                                    .appendQueryParameter("origtext", finalContents)
-                                                                    .appendQueryParameter("newtext", newtext.getText().toString())
-                                                                    .appendQueryParameter("userid", Globals.getInstance().userID)
-                                                                    .appendQueryParameter("fileid", fileIDs[(int) id])
-                                                                    .appendQueryParameter("db", "codedb");
-                                                            String query = builder.build().getEncodedQuery();
-                                                            System.out.println("The query: " + query);      //to verify query string
-
-                                                            url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
-                                                            HttpURLConnection conn4 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
-                                                            conn4.setRequestMethod("POST");
-                                                            conn4.setDoOutput(true);
-                                                            conn4.setDoInput(true);
-                                                            OutputStream os = conn4.getOutputStream();
-                                                            BufferedWriter writer = new BufferedWriter(
-                                                                    new OutputStreamWriter(os, "UTF-8"));
-                                                            writer.write(query);
-                                                            writer.flush();
-                                                            writer.close();
-                                                            os.close();
-
-                                                            System.out.println("The complete POST url: " + url); //to verify full url
-                                                            try {//to get the response from server
-                                                                String postContents = "";
-                                                                BufferedReader rd = new BufferedReader(new InputStreamReader(conn4.getInputStream()));
-                                                                StringBuilder sb = new StringBuilder();
-                                                                String line;
-                                                                while ((line = rd.readLine()) != null) {
-                                                                    postContents += line;
-                                                                    System.out.println("entered for loop");
-                                                                }
-                                                                System.out.println("line " + line);
-                                                                System.out.println("The POST contents: " + postContents);
-                                                                if (postContents.trim().equals("false")) {
-                                                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(FilesActivity.this);
-                                                                    myAlert.setMessage("Error. The file was not saved successfully." +
-                                                                            "\n\nPlease try again.").create();
-                                                                    myAlert.setPositiveButton("Continue...", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                            dialog.dismiss();
-                                                                        }
-                                                                    });
-                                                                    myAlert.show();
-                                                                } else {
-                                                                    Toast.makeText(FilesActivity.this, "The file was saved successfully!", Toast.LENGTH_LONG).show();
-                                                                }
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            } finally {//disconnect after making the connection and executing the query
-                                                                conn4.disconnect();
-                                                            }
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-                                                }
-                                        );
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     } finally {//disconnect after making the connection and executing the query
@@ -339,6 +290,26 @@ public class FilesActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+
+
+                                //REAL TIME PART
+                                //make consecutive calls to "loadfile.php" to get any changes that may have taken place on the file
+                                //the very first time, we need to set up the oldContent to have the current content
+                                final int positionCheck = Globals.getInstance().currentCodeFilePosition;
+                                final com.example.jordan.divvyupv12.FilesActivity activityCheck = Globals.getInstance().currentActivity;
+                                final Timer myTimer = new Timer();
+                                myTimer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        if (positionCheck != Globals.getInstance().currentCodeFilePosition || activityCheck != Globals.getInstance().currentActivity) { //user switched to a different file
+                                            myTimer.cancel();
+                                            System.out.println("~~~~~ Cancelled Timer ~~~~~");
+                                        }
+                                        TimerMethodSave(id);
+                                        TimerMethodLoad(id);
+                                        System.out.println("~~~~~ Query Executed ~~~~~");
+                                    }
+                                }, 0, 5000);
 
 
                             }
@@ -357,6 +328,7 @@ public class FilesActivity extends AppCompatActivity {
         findViewById(R.id.create_file).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Globals.getInstance().currentActivity = null;
                 startActivity(new Intent(FilesActivity.this, CreateFileActivity.class));
             }
         });
@@ -369,6 +341,7 @@ public class FilesActivity extends AppCompatActivity {
                 myAlert.setPositiveButton("With a Group!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Globals.getInstance().currentActivity = null;
                         startActivity(new Intent(FilesActivity.this, ShareFileActivity.class));
                         dialog.dismiss();
                     }
@@ -376,6 +349,7 @@ public class FilesActivity extends AppCompatActivity {
                 myAlert.setNegativeButton("With a User!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Globals.getInstance().currentActivity = null;
                         startActivity(new Intent(FilesActivity.this, AddUserToFileActivity.class));
                         dialog.dismiss();
                     }
@@ -403,15 +377,18 @@ public class FilesActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Globals.getInstance().currentActivity = null;
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             Toast.makeText(FilesActivity.this, "Goodbye!", Toast.LENGTH_LONG).show();
             return true;
         } else if (id == R.id.action_jumptogroups) {
+            Globals.getInstance().currentActivity = null;
             Intent intent = new Intent(this, GroupsActivity.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.action_jumptoaccount) {
+            Globals.getInstance().currentActivity = null;
             Intent intent = new Intent(this, ManageAccountActivity.class);
             startActivity(intent);
             return true;
@@ -420,8 +397,134 @@ public class FilesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //public void goToFiles(View view) {
-    //    Intent intent = new Intent(this, AddUserToFileActivity.class);
-    //    startActivity(intent);
-    //}
+    public void TimerMethodSave(long id) {
+
+        EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
+        String newtext = edittext.getText().toString();
+        System.out.println("The old text: " + Globals.getInstance().oldContent);
+        System.out.println("The new text: " + newtext);
+        System.out.println("The userID is: " + Globals.getInstance().userID);
+        System.out.println("The fileID is: " + fileIDs[(int) id]);
+        try {
+            //System.out.println("~~~~~ Making my Query now! ~~~~~");
+            HttpURLConnection conn4 = null;
+            try { //must surround with try/catch to filter errors
+                //String contents = "";
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("origtext", Globals.getInstance().oldContent)
+                        .appendQueryParameter("newtext", newtext)
+                        .appendQueryParameter("userid", Globals.getInstance().userID)
+                        .appendQueryParameter("fileid", fileIDs[(int) id])
+                        .appendQueryParameter("db", "codedb");
+                String query = builder.build().getEncodedQuery();
+                //System.out.println("The query: " + query);      //to verify query string
+
+                url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
+                conn4 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
+                conn4.setRequestMethod("POST");
+                conn4.setDoOutput(true);
+                conn4.setDoInput(true);
+                OutputStream os = conn4.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+
+                try {//to get the response from server
+                    String postContents = "";
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(conn4.getInputStream()));
+                    String line;
+                    while ((line = rd.readLine()) != null) {
+                        postContents += line;
+                    }
+                    System.out.println("The query: " + query);
+                    System.out.println("The POST contents: " + postContents);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {//disconnect after making the connection and executing the query
+                conn4.disconnect();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Globals.getInstance().oldContent = newtext; //old content now needs to be set to new content
+        Globals.getInstance().cursorPosition = edittext.getSelectionStart();
+        this.runOnUiThread(Timer_Tick2);
+    }
+
+    public void TimerMethodLoad(long id) {
+        Globals.getInstance().changeIndicator = false;  //for detecting changes by other users
+        EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
+        try {
+            System.out.println("Checking for changes made by other users...");
+            System.out.println("The fileID is: " + fileIDs[(int) id]);
+            String contents = "";
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter("fileid", fileIDs[(int) id])
+                    .appendQueryParameter("db", "codedb");
+            String query = builder.build().getEncodedQuery();
+
+            url = new URL("http://cslinux.samford.edu/codedb/loadfile.php?" + query);
+            HttpURLConnection conn2 = (HttpURLConnection) url.openConnection();
+            System.out.println("The complete url is : " + url); //to verify full url
+            try {//to get the response from server
+                InputStream in = new BufferedInputStream(conn2.getInputStream());
+                Scanner httpin = new Scanner(in);
+                for (int i = 0; httpin.hasNextLine(); i++) {
+                    if (i != 0) {
+                        contents += "\n" + httpin.nextLine();
+                    } else {
+                        contents += httpin.nextLine();
+                    }
+                }
+                System.out.println("The contents before request: " + Globals.getInstance().oldContent);
+                System.out.println("The contents after request: " + contents);
+
+                //if a change is detected, indicate this and update the old contents
+                if (!Globals.getInstance().oldContent.equals(contents)) {
+                    Globals.getInstance().changeIndicator = true;
+                    Globals.getInstance().oldContent = contents;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Globals.getInstance().cursorPosition = edittext.getSelectionStart();
+        this.runOnUiThread(Timer_Tick1);
+    }
+
+    private Runnable Timer_Tick1 = new Runnable() {
+        public void run() {
+            if (Globals.getInstance().changeIndicator == true) { //update the editText box and put cursor back in the closest position
+                EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
+                edittext.setText(Globals.getInstance().oldContent); //because its actually the new content that has just been changed
+                System.out.println("The cursor position i am trying to place: " + Globals.getInstance().cursorPosition);
+                edittext.setSelection(Globals.getInstance().cursorPosition);
+                Toast.makeText(FilesActivity.this, "An edit has been made", Toast.LENGTH_SHORT).show();
+            }
+            //This method runs in the same thread as the UI.
+            //Do something to the UI thread here
+
+        }
+    };
+
+    private Runnable Timer_Tick2 = new Runnable() {
+        public void run() {
+            EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
+            edittext.setText(Globals.getInstance().oldContent); //because its actually the new content that has just been changed
+            System.out.println("The cursor position i am trying to place: " + Globals.getInstance().cursorPosition);
+            edittext.setSelection(Globals.getInstance().cursorPosition);
+            //This method runs in the same thread as the UI.
+            //Do something to the UI thread here
+        }
+    };
+
 }

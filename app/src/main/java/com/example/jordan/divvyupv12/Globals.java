@@ -25,8 +25,15 @@ public class Globals {
     //note that this ONLY works with leaving groups. If you are the owner trying to remove somebody... its more difficult
     public int positionOfGroup; //position of group to pass for deleting
 
-    //used with sharing to a group
+    //used with sharing a file with a group
     public String[] groupmemberIDsPass;
+    
+    //used with real time
+    public String oldContent;
+    public int currentCodeFilePosition;
+    public boolean changeIndicator;
+    public com.example.jordan.divvyupv12.FilesActivity currentActivity;
+    public int cursorPosition;
 
     protected Globals(){};
     public static synchronized Globals getInstance(){
