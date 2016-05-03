@@ -9,6 +9,8 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Selection;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -301,15 +303,19 @@ public class FilesActivity extends AppCompatActivity {
                                 myTimer.schedule(new TimerTask() {
                                     @Override
                                     public void run() {
+                                        boolean cancelled = false;
                                         if (positionCheck != Globals.getInstance().currentCodeFilePosition || activityCheck != Globals.getInstance().currentActivity) { //user switched to a different file
                                             myTimer.cancel();
+                                            cancelled = true;
                                             System.out.println("~~~~~ Cancelled Timer ~~~~~");
                                         }
-                                        TimerMethodSave(id);
-                                        TimerMethodLoad(id);
-                                        System.out.println("~~~~~ Query Executed ~~~~~");
+                                        if (cancelled == false) {
+                                            TimerMethodSave(id);
+                                            TimerMethodLoad(id);
+                                            System.out.println("~~~~~ Query Executed ~~~~~");
+                                        }
                                     }
-                                }, 0, 5000);
+                                }, 0, 8000);
 
 
                             }
@@ -405,54 +411,12 @@ public class FilesActivity extends AppCompatActivity {
         System.out.println("The new text: " + newtext);
         System.out.println("The userID is: " + Globals.getInstance().userID);
         System.out.println("The fileID is: " + fileIDs[(int) id]);
-        try {
-            //System.out.println("~~~~~ Making my Query now! ~~~~~");
-            HttpURLConnection conn4 = null;
-            try { //must surround with try/catch to filter errors
-                //String contents = "";
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("origtext", Globals.getInstance().oldContent)
-                        .appendQueryParameter("newtext", newtext)
-                        .appendQueryParameter("userid", Globals.getInstance().userID)
-                        .appendQueryParameter("fileid", fileIDs[(int) id])
-                        .appendQueryParameter("db", "codedb");
-                String query = builder.build().getEncodedQuery();
-                //System.out.println("The query: " + query);      //to verify query string
 
-                url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
-                conn4 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
-                conn4.setRequestMethod("POST");
-                conn4.setDoOutput(true);
-                conn4.setDoInput(true);
-                OutputStream os = conn4.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
+        //call save file method
+        saveFileMethod(Globals.getInstance().oldContent, newtext, Globals.getInstance().userID, fileIDs[(int) id]);
 
-                try {//to get the response from server
-                    String postContents = "";
-                    BufferedReader rd = new BufferedReader(new InputStreamReader(conn4.getInputStream()));
-                    String line;
-                    while ((line = rd.readLine()) != null) {
-                        postContents += line;
-                    }
-                    System.out.println("The query: " + query);
-                    System.out.println("The POST contents: " + postContents);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {//disconnect after making the connection and executing the query
-                conn4.disconnect();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        System.out.println("After saving, the current cursor position is: " + edittext.getSelectionStart());
+        System.out.println("After saving, Globals.oldContent is being updated with: " + newtext);
         Globals.getInstance().oldContent = newtext; //old content now needs to be set to new content
         Globals.getInstance().cursorPosition = edittext.getSelectionStart();
         this.runOnUiThread(Timer_Tick2);
@@ -461,6 +425,7 @@ public class FilesActivity extends AppCompatActivity {
     public void TimerMethodLoad(long id) {
         Globals.getInstance().changeIndicator = false;  //for detecting changes by other users
         EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
+        boolean cursorOutOfBounds = false; //for detecting whether cursor is out of bounds and will fail
         try {
             System.out.println("Checking for changes made by other users...");
             System.out.println("The fileID is: " + fileIDs[(int) id]);
@@ -487,29 +452,47 @@ public class FilesActivity extends AppCompatActivity {
                 System.out.println("The contents after request: " + contents);
 
                 //if a change is detected, indicate this and update the old contents
-                if (!Globals.getInstance().oldContent.equals(contents)) {
+                if (!(Globals.getInstance().oldContent.equals(contents))) {
+                    System.out.println("Entered first if statement...");
                     Globals.getInstance().changeIndicator = true;
+                    if (Globals.getInstance().oldContent.length() > contents.length()) { //if the new content has less string characters, chance that current cursor will crash
+                        cursorOutOfBounds = true;                                      //in the future, also would track line number to check if cursor was on last line
+                        System.out.println("Entered inner if statement...");
+                    }
+                    System.out.println("Set Globals.oldContent = " + contents);
                     Globals.getInstance().oldContent = contents;
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {//disconnect after making the connection and executing the query
+                conn2.disconnect();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Globals.getInstance().cursorPosition = edittext.getSelectionStart();
+
+        //if the cursor is potentially out of bounds, make sure and set the cursor to the last position in the file
+        System.out.println("cursorOutOfBounds is: " + cursorOutOfBounds);
+        if (cursorOutOfBounds == true) {
+            System.out.println("After loading a change, cursor position is: " + (Globals.getInstance().oldContent.length() - 1));
+            Globals.getInstance().cursorPosition = Globals.getInstance().oldContent.length() - 1;
+        }
         this.runOnUiThread(Timer_Tick1);
     }
 
     private Runnable Timer_Tick1 = new Runnable() {
         public void run() {
+            EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
             if (Globals.getInstance().changeIndicator == true) { //update the editText box and put cursor back in the closest position
-                EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
                 edittext.setText(Globals.getInstance().oldContent); //because its actually the new content that has just been changed
-                System.out.println("The cursor position i am trying to place: " + Globals.getInstance().cursorPosition);
-                edittext.setSelection(Globals.getInstance().cursorPosition);
+                //System.out.println("The cursor position i am trying to place: " + Globals.getInstance().cursorPosition);
+                if (Globals.getInstance().cursorPosition != -1) {
+                    edittext.setSelection(Globals.getInstance().cursorPosition);
+                }
                 Toast.makeText(FilesActivity.this, "An edit has been made", Toast.LENGTH_SHORT).show();
             }
+            System.out.println("Placing cursor at: " + Globals.getInstance().cursorPosition);
             //This method runs in the same thread as the UI.
             //Do something to the UI thread here
 
@@ -520,11 +503,65 @@ public class FilesActivity extends AppCompatActivity {
         public void run() {
             EditText edittext = (EditText) findViewById(R.id.fileContentsBox);
             edittext.setText(Globals.getInstance().oldContent); //because its actually the new content that has just been changed
+            System.out.println("The content i am trying to place: " + Globals.getInstance().oldContent);
             System.out.println("The cursor position i am trying to place: " + Globals.getInstance().cursorPosition);
-            edittext.setSelection(Globals.getInstance().cursorPosition);
+            if (Globals.getInstance().cursorPosition != -1) {
+                edittext.setSelection(Globals.getInstance().cursorPosition);
+            }
             //This method runs in the same thread as the UI.
             //Do something to the UI thread here
         }
     };
 
+    public void saveFileMethod (String origtext, String newtext, String userID, String fileID) {
+        try {
+            //System.out.println("~~~~~ Making my Query now! ~~~~~");
+            HttpURLConnection conn4 = null;
+            try { //must surround with try/catch to filter errors
+                //String contents = "";
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("origtext", origtext)
+                        .appendQueryParameter("newtext", newtext)
+                        .appendQueryParameter("userid", userID)
+                        .appendQueryParameter("fileid", fileID)
+                        .appendQueryParameter("db", "codedb");
+                String query = builder.build().getEncodedQuery();
+                //System.out.println("The query: " + query);      //to verify query string
+
+                url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
+                conn4 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
+                conn4.setRequestMethod("POST");
+                conn4.setDoOutput(true);
+                conn4.setDoInput(true);
+                OutputStream os = conn4.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+
+                try {//to get the response from server
+                    String postContents = "";
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(conn4.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = rd.readLine()) != null) {
+                        postContents += line;
+                        System.out.println("Entered while loop...");
+                    }
+                    System.out.println("The query: " + query);
+                    System.out.println("The POST contents: " + postContents);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {//disconnect after making the connection and executing the query
+                conn4.disconnect();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
