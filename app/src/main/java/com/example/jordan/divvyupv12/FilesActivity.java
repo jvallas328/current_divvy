@@ -40,6 +40,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -508,60 +509,63 @@ public class FilesActivity extends AppCompatActivity {
             if (Globals.getInstance().cursorPosition != -1) {
                 edittext.setSelection(Globals.getInstance().cursorPosition);
             }
+            System.out.println("Placing cursor at: " + Globals.getInstance().cursorPosition);
             //This method runs in the same thread as the UI.
             //Do something to the UI thread here
         }
     };
 
     public void saveFileMethod (String origtext, String newtext, String userID, String fileID) {
-        try {
-            //System.out.println("~~~~~ Making my Query now! ~~~~~");
-            HttpURLConnection conn4 = null;
-            try { //must surround with try/catch to filter errors
-                //String contents = "";
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("origtext", origtext)
-                        .appendQueryParameter("newtext", newtext)
-                        .appendQueryParameter("userid", userID)
-                        .appendQueryParameter("fileid", fileID)
-                        .appendQueryParameter("db", "codedb");
-                String query = builder.build().getEncodedQuery();
-                //System.out.println("The query: " + query);      //to verify query string
+        if(!(origtext.equals(newtext))) {
+            try {
+                //System.out.println("~~~~~ Making my Query now! ~~~~~");
+                HttpURLConnection conn4 = null;
+                try { //must surround with try/catch to filter errors
+                    //String contents = "";
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("origtext", origtext)
+                            .appendQueryParameter("newtext", newtext)
+                            .appendQueryParameter("userid", userID)
+                            .appendQueryParameter("fileid", fileID)
+                            .appendQueryParameter("db", "codedb");
+                    String query = builder.build().getEncodedQuery();
+                    //System.out.println("The query: " + query);      //to verify query string
 
-                url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
-                conn4 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
-                conn4.setRequestMethod("POST");
-                conn4.setDoOutput(true);
-                conn4.setDoInput(true);
-                OutputStream os = conn4.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
+                    url = new URL("http://cslinux.samford.edu/codedb/patchmake.php");
+                    conn4 = (HttpURLConnection) url.openConnection();//MAKE GLOBAL LATER
+                    conn4.setRequestMethod("POST");
+                    conn4.setDoOutput(true);
+                    conn4.setDoInput(true);
+                    OutputStream os = conn4.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
 
-                try {//to get the response from server
-                    String postContents = "";
-                    BufferedReader rd = new BufferedReader(new InputStreamReader(conn4.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = rd.readLine()) != null) {
-                        postContents += line;
-                        System.out.println("Entered while loop...");
+                    try {//to get the response from server
+                        String postContents = "";
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(conn4.getInputStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        while ((line = rd.readLine()) != null) {
+                            postContents += line;
+                            System.out.println("Entered while loop...");
+                        }
+                        System.out.println("The query: " + query);
+                        System.out.println("The POST contents: " + postContents);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    System.out.println("The query: " + query);
-                    System.out.println("The POST contents: " + postContents);
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {//disconnect after making the connection and executing the query
+                    conn4.disconnect();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {//disconnect after making the connection and executing the query
-                conn4.disconnect();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
