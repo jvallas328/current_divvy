@@ -305,7 +305,8 @@ public class FilesActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         boolean cancelled = false;
-                                        if (positionCheck != Globals.getInstance().currentCodeFilePosition || activityCheck != Globals.getInstance().currentActivity) { //user switched to a different file
+                                        if (positionCheck != Globals.getInstance().currentCodeFilePosition ||
+                                                activityCheck != Globals.getInstance().currentActivity) {       //user switched to a different file or activity
                                             myTimer.cancel();
                                             cancelled = true;
                                             System.out.println("~~~~~ Cancelled Timer ~~~~~");
